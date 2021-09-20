@@ -2,32 +2,14 @@ import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
     System.out.println("Selamat Datang di Aplikasi Pengolah Matrix!");
     System.out.println("Sebelum masuk dan mengolah sebuah matrix, silahkan masukkan matrix lebih dahulu");
 
-    // Input matrix
-    System.out.print("Masukkan ukuran matriks: ");
-    Scanner in = new Scanner(System.in);
-    int rows = in.nextInt();
-    int columns = in.nextInt();
-
-    System.out.println("Masukkan ukuran matriks : ");
-
-    int matrix[][] = new int[rows][columns];
-
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < columns; j++) {
-        matrix[i][j] = in.nextInt();
-      }
-    }
-    System.out.print("\nMatriks yang telah dimasukkan : \n");
-    for (int[] row : matrix) {
-      for (int col : row) {
-        System.out.print(col + " ");
-      }
-      System.out.println();
-    }
-
+    Matrix matriks = new Matrix(0,0);
+    matriks.CreateMatrix();
+    matriks.DisplayMatrix();
+    
     System.out.println("Selamat telah memasukkan matrix!");
     System.out.println("Sekarang mari berangkat ke menu pengolahan matriks!");
     System.out.println();
@@ -78,6 +60,7 @@ public class Main {
       }
 
       System.out.println("Terimakasih telah menggunakan Pengolah Matriks!");
+      in.close();
     }
   }
 }
