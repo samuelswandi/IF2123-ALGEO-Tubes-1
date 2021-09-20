@@ -1,7 +1,8 @@
 import java.util.Scanner;
+
 public class Main {
   public static void main(String[] args) {
-    System.out.println("Selamat Datang di Aplikasi Pengolahan Matrix!");
+    System.out.println("Selamat Datang di Aplikasi Pengolah Matrix!");
     System.out.println("Sebelum masuk dan mengolah sebuah matrix, silahkan masukkan matrix lebih dahulu");
 
     // Input matrix
@@ -26,16 +27,11 @@ public class Main {
       }
       System.out.println();
     }
-    in.close();
 
     System.out.println("Selamat telah memasukkan matrix!");
     System.out.println("Sekarang mari berangkat ke menu pengolahan matriks!");
     System.out.println();
-    System.out.println();
-    System.out.println();
-    System.out.println();
-    System.out.println();
-    
+
     System.out.println("MENU");
     System.out.println("1. Sistem Persamaan Linier");
     System.out.println("2. Determinan");
@@ -44,5 +40,45 @@ public class Main {
     System.out.println("5. Regresi linear berganda");
     System.out.println("6. Keluar");
 
+    System.out.print("Silahkan masukan angka untuk pengolahan matriks: ");
+    int choice = in.nextInt();
+
+    while (choice != 6) {
+      switch (choice) {
+        case 1:
+
+          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+          choice = in.nextInt();
+          break;
+        case 2:
+
+          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+          choice = in.nextInt();
+          break;
+        case 3:
+
+          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+          choice = in.nextInt();
+          break;
+
+        case 4:
+          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+          choice = in.nextInt();
+          break;
+
+        case 5:
+
+          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+          choice = in.nextInt();
+          break;
+        default:
+
+          System.out.print("Angka yang anda masukkan salah, silahkan masukkan angka baru: ");
+          choice = in.nextInt();
+      }
+
+      System.out.println("Terimakasih telah menggunakan Pengolah Matriks!");
+    }
   }
 }
+// Salam, Ada Nyamuk :D
