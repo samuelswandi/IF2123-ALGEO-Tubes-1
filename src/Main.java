@@ -6,9 +6,9 @@ public class Main {
     System.out.println("Selamat Datang di Aplikasi Pengolah Matrix!");
     System.out.println("Sebelum masuk dan mengolah sebuah matrix, silahkan masukkan matrix lebih dahulu");
 
-    Matrix matriks = new Matrix(0,0);
-    matriks.CreateMatrix();
-    matriks.DisplayMatrix();
+    Matrix matrix = new Matrix(0,0);
+    matrix.CreateMatrix();
+    matrix.DisplayMatrix();
     
     System.out.println("Selamat telah memasukkan matrix!");
     System.out.println("Sekarang mari berangkat ke menu pengolahan matriks!");
@@ -28,6 +28,16 @@ public class Main {
     while (choice != 6) {
       switch (choice) {
         case 1:
+          System.out.println("Penyelesaian matriks menggunakan : ");
+          System.out.println("1. Metode eliminasi Gauss");
+          System.out.println("2. Metode eliminasi Gauss-Jordan ");
+          System.out.println("3. Metode matriks balikan ");
+          System.out.println("4. Kaidah Cramer ");
+          System.out.print("Masukkan angka untuk memilih metode: ");
+          int case1Choice = in.nextInt();
+
+          // SPL spl = new SPL(matrix.columns,matrix.rows);
+          // spl.SolveSPL(case1Choice);
 
           System.out.print("Masukkan angka untuk memilih operasi lain: ");
           choice = in.nextInt();
