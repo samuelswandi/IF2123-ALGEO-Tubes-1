@@ -4,14 +4,6 @@ public class Main {
   public static void main(String[] args) {
     Scanner in = new Scanner(System.in);
     System.out.println("Selamat Datang di Aplikasi Pengolah Matrix!");
-    System.out.println("Sebelum masuk dan mengolah sebuah matrix, silahkan masukkan matrix lebih dahulu");
-
-    Matrix matrix = new Matrix(0,0);
-    matrix.CreateMatrix();
-    matrix.DisplayMatrix();
-    
-    System.out.println("Selamat telah memasukkan matrix!");
-    System.out.println("Sekarang mari berangkat ke menu pengolahan matriks!");
     System.out.println();
 
     System.out.println("MENU");
@@ -24,8 +16,12 @@ public class Main {
 
     System.out.print("Silahkan masukan angka untuk pengolahan matriks: ");
     int choice = in.nextInt();
+    Matrix matrix = new Matrix(0,0);
 
     while (choice != 6) {
+      matrix.CreateMatrix();
+      System.out.println("Matriks yang telah dibuat: ");
+      matrix.DisplayMatrix();
       switch (choice) {
         case 1:
           System.out.println("Penyelesaian matriks menggunakan : ");
@@ -34,7 +30,7 @@ public class Main {
           System.out.println("3. Metode matriks balikan ");
           System.out.println("4. Kaidah Cramer ");
           System.out.print("Masukkan angka untuk memilih metode: ");
-          int case1Choice = in.nextInt();
+          // int case1Choice = in.nextInt();
 
           // SPL spl = new SPL(matrix.columns,matrix.rows);
           // spl.SolveSPL(case1Choice);
@@ -44,10 +40,19 @@ public class Main {
           break;
         case 2:
 
-          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+          System.out.print("Determinan dari matriks adalah :");
+          System.out.print("Adalah : ");
+          double det = matrix.Determinan();
+          System.out.print(det);
+
+          System.out.print("\nMasukkan angka untuk memilih operasi lain: ");
           choice = in.nextInt();
           break;
         case 3:
+
+          System.out.println("Transpose:");
+          matrix.Transpose();
+          matrix.DisplayMatrix();
 
           System.out.print("Masukkan angka untuk memilih operasi lain: ");
           choice = in.nextInt();
@@ -68,10 +73,9 @@ public class Main {
           System.out.print("Angka yang anda masukkan salah, silahkan masukkan angka baru: ");
           choice = in.nextInt();
       }
-
-      System.out.println("Terimakasih telah menggunakan Pengolah Matriks!");
-      in.close();
     }
+    System.out.println("Terimakasih telah menggunakan Pengolah Matriks!");
+    in.close();
   }
 }
 // Salam, Ada Nyamuk :D
