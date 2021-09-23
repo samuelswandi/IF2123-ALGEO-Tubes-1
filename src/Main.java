@@ -39,9 +39,14 @@ public class Main {
           choice = in.nextInt();
           break;
         case 2:
-
+        while(matrix.rows != matrix.columns){
+          System.out.print("Matrix bukan merupakan matriks persegi, silahkan masukkan matriks kembali!\n");
+          matrix.CreateMatrix();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
+        }
           System.out.print("Determinan dari matriks adalah :");
-          System.out.print("Adalah : ");
+          
           double det = matrix.Determinan();
           System.out.print(det);
 
@@ -50,9 +55,6 @@ public class Main {
           break;
         case 3:
 
-          System.out.println("Transpose:");
-          matrix.Transpose();
-          matrix.DisplayMatrix();
 
           System.out.print("Masukkan angka untuk memilih operasi lain: ");
           choice = in.nextInt();
