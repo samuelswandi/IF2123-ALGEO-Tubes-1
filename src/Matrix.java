@@ -1,29 +1,77 @@
-package src;
 import java.util.Scanner;
+
 public class Matrix {
-    public static void main(String[] args) {
-        System.out.print("Enter Matrix size : ");
+    int rows, columns;
+    double[][] matrix;
+
+    Matrix(int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
+        this.matrix = new double[rows][columns];
+    }
+
+    void CreateMatrix() {
+        System.out.print("Masukkan ukuran matriks: ");
         Scanner in = new Scanner(System.in);
-        int rows = in.nextInt();
-        int columns = in.nextInt();
+        this.rows = in.nextInt();
+        this.columns = in.nextInt();
 
-        System.out.println("Enter Matrix elements : ");
-
-        int matrix[][] = new int[rows][columns];
+        System.out.println("Masukkan elemen matriks : ");
+        this.matrix = new double[rows][columns];
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                matrix[i][j] = in.nextInt();
+                this.matrix[i][j] = in.nextFloat();
             }
         }
-        System.out.print("\nMatrix : \n");
-        for (int[] row : matrix) {
-            for (int col : row) {
+
+    }
+
+    void DisplayMatrix() {
+        for (double[] row : this.matrix) {
+            for (double col : row) {
                 System.out.print(col + " ");
             }
             System.out.println();
         }
-        in.close();
+    }
+
+    double Determinan(){
+        if (this.rows  == 1){return this.matrix[0][0];}
+        else if(this.rows == 2){return this.matrix[0][0]*this.matrix[1][1] - this.matrix[1][0]*this.matrix[0][1];}
+        else{ 
+            int i,j,k;
+            double det = 0;
+            for (i = 0 ; i < this.rows ; i++){
+                Matrix newM = new Matrix(this.rows - 1, this.columns - 1);
+                for (j = 1 ; j < this.rows ; j++){
+                    int row = j-1 , col = 0;
+                    for (k = 0 ; k < this.rows ; k++){
+                        if (k != i){
+                            newM.matrix[row][col] = this.matrix[j][k];
+                            col++;
+                        }
+                    }
+                }
+                if (i % 2 == 0){
+                    det += this.matrix[0][i] * newM.Determinan();
+                }
+                else{det += (-1)*this.matrix[0][i] * newM.Determinan();}
+            }
+            return det;
+        }
+    }
+
+    void Transpose(){
+        int i,j;
+        double temp;
+        for (i = 0 ; i < this.rows ; i++){
+            for(j = i ; j < this.rows ; j++){
+                temp = this.matrix[i][j];
+                this.matrix[i][j] = this.matrix[j][i];
+                this.matrix[j][i] = temp;
+            }
+        }
     }
 
 }
