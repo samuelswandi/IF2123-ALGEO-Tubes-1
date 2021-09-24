@@ -12,6 +12,8 @@ public class Matrix {
         this.matrix = new double[rows][columns];
     }
 
+
+    /* KELOMPOK KONSTRUKTOR */
     void CreateMatrix() {
         System.out.print("Masukkan ukuran matriks: ");
         Scanner in = new Scanner(System.in);
@@ -37,6 +39,8 @@ public class Matrix {
             System.out.println();
         }
     }
+
+    /*KELOMPOK OPERASI PRIMITIF TERHADAP MATRIX */
 
     double Determinan() {
         if (this.rows == 1) {
@@ -93,7 +97,19 @@ public class Matrix {
         return mOut;
     }
 
-    void SPL() {
+    void MultiplyConst(double n) {
+        int i, j;
+        for (i = 0; i < this.rows; i++) {
+            for (j = 0; j < this.columns; j++) {
+                this.matrix[i][j] *= n;
+            }
+
+        }
+    }
+
+
+    /* KELOMPOK PENYELESAIAN SPL MATRIX */
+    void SPLbalikan() {
         int i, j, row = 0;
         Matrix mOut = new Matrix(this.rows, this.columns - 1);
         Matrix temp = new Matrix(this.rows, 1);
@@ -110,20 +126,38 @@ public class Matrix {
 
         System.out.println("Hasil SPL :");
         mOut.Inverse();
-        this.matrix = mOut.Multiply(temp.matrix);
+        this.matrix = mOut.Multiply(temp.matrix);   /* Size matrix juga berubah ,  apa ga sekalian diubah?*/
         this.DisplayMatrix();
     }
 
-    void MultiplyConst(double n) {
-        int i, j;
-        for (i = 0; i < this.rows; i++) {
-            for (j = 0; j < this.columns; j++) {
-                this.matrix[i][j] *= n;
+    void SPLcramer(){
+        double det = this.Determinan();
+        Matrix result = new Matrix(this.rows,1);
+        for(int i = 0 ; i < this.rows ; i++){
+            // Temporary Matrix for Value Assigning
+            Matrix temp = new Matrix(this.rows, this.columns - 1);
+            for(int tempRow = 0 ; tempRow < this.rows ; tempRow++){
+                for(int tempCol = 0 ; tempCol < this.columns - 1 ; tempCol++){
+                    if (tempCol == i){
+                        temp.matrix[tempRow][tempCol] = this.matrix[tempRow][this.columns - 1];
+                    }
+                    else{
+                        temp.matrix[tempRow][tempCol] = this.matrix[tempRow][tempCol];
+                    }
+                }
             }
-
+            //Assign Temporary Matrix Determinant for Variable's Resolver
+            result.matrix[i][0] = temp.Determinan() / det;
         }
+        System.out.println("Hasil SPL :");
+        this.matrix = result.matrix;
+        this.columns = 1;
+        this.DisplayMatrix();
     }
 
+
+
+    /* KELOMPOK PENYELESAIAN INVERSE MATRIX */
     void Inverse() {
         int i, j, a, b;
         double det = this.Determinan();

@@ -41,11 +41,11 @@ public class Main {
               break;
             case 3:
               // Metode invers
-              matrix.SPL();
+              matrix.SPLbalikan();
 
               break;
             case 4:
-
+              matrix.SPLcramer();
               break;
             default:
 
