@@ -109,4 +109,52 @@ public class Matrix {
         this.matrix = mOut.Multiply(temp.matrix);
         this.DisplayMatrix();
     }
+
+    void MultiplyConst(double n){
+        int i,j;
+        for(i=0;i<this.rows;i++){
+            for(j=0;j<this.columns;j++){
+                this.matrix[i][j] *= n;
+            }
+
+        }
+    }
+    
+    void Inverse() {
+        int i, j, a, b;
+        double det = this.Determinan();
+        Matrix cofactor = new Matrix(this.rows,this.columns);
+        for (i = 0; i < this.rows; i++)
+        {
+            for (j = 0; j < this.columns; j++)
+            {
+                Matrix tempMatrix = new Matrix(this.rows-1,this.columns-1);
+                int row = 0;
+                for (a = 0; a < this.rows; a++)
+                {
+                    int col = 0;
+                    for (b = 0; b < this.columns; b++)
+                    {
+                        if (a != i && b != j)
+                        {
+                            tempMatrix.matrix[row][col] = this.matrix[a][b];
+                            col++;
+                        }
+                    }
+                    if(a!=i){row++;}
+                }
+                if ((i + j) % 2 == 0)
+                {
+                    cofactor.matrix[i][j] = tempMatrix.Determinan();
+                }
+                else
+                {
+                    cofactor.matrix[i][j] = (-1) * tempMatrix.Determinan();
+                }
+            }
+        }
+        cofactor.Transpose();
+        cofactor.MultiplyConst(1/det);
+        this.matrix = cofactor.matrix;
+    }
 }
