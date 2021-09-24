@@ -74,4 +74,21 @@ public class Matrix {
         }
     }
 
+    double[][] multiply(double[][] mIn){
+        int i, j, k;
+        double[][] mOut = new double[this.rows][mIn[0].length];
+        for (i = 0; i < this.rows; i++)
+        {
+            for ( j = 0; j < mIn[0].length; j++)
+            {
+                mOut[i][j] = 0;
+                for (k = 0; k < this.columns; k++)
+                {
+                    mOut[i][j] += this.matrix[i][k]*mIn[k][j];
+                }
+            }
+        }
+    return mOut;
+    }
+
 }
