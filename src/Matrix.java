@@ -74,7 +74,7 @@ public class Matrix {
         }
     }
 
-    double[][] multiply(double[][] mIn){
+    double[][] Multiply(double[][] mIn){
         int i, j, k;
         double[][] mOut = new double[this.rows][mIn[0].length];
         for (i = 0; i < this.rows; i++)
@@ -88,7 +88,25 @@ public class Matrix {
                 }
             }
         }
-    return mOut;
+        return mOut;
     }
 
+    void SPL() {
+        int i,j,row=0;
+        Matrix mOut = new Matrix(this.rows, this.columns-1);
+        Matrix temp = new Matrix(this.rows, 1);
+        for(i=0;i<this.rows;i++){
+            for(j=0;j<this.columns;j++){
+                if(j == this.columns-1){
+                    temp.matrix[row][0] = this.matrix[i][j];
+                    row++;
+                } else {
+                    mOut.matrix[i][j] = this.matrix[i][j];
+                }
+            }
+        }
+        // mOut.inverse();
+        this.matrix = mOut.Multiply(temp.matrix);
+        this.DisplayMatrix();
+    }
 }

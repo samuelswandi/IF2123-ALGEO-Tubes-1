@@ -30,10 +30,28 @@ public class Main {
           System.out.println("3. Metode matriks balikan ");
           System.out.println("4. Kaidah Cramer ");
           System.out.print("Masukkan angka untuk memilih metode: ");
-          // int case1Choice = in.nextInt();
+          int case1Choice = in.nextInt();
+          
+          switch(case1Choice){
+            case 1:
 
-          // SPL spl = new SPL(matrix.columns,matrix.rows);
-          // spl.SolveSPL(case1Choice);
+            break;
+            case 2:
+
+            break;
+            case 3:
+            // Metode invers
+            matrix.SPL();
+            
+            break;
+            case 4:
+
+            break;
+            default:
+
+            break;
+          }
+          
 
           System.out.print("Masukkan angka untuk memilih operasi lain: ");
           choice = in.nextInt();
