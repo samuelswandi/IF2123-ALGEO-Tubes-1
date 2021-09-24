@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+
 public class Matrix {
     int rows, columns;
     double[][] matrix;
@@ -36,37 +38,40 @@ public class Matrix {
         }
     }
 
-    double Determinan(){
-        if (this.rows  == 1){return this.matrix[0][0];}
-        else if(this.rows == 2){return this.matrix[0][0]*this.matrix[1][1] - this.matrix[1][0]*this.matrix[0][1];}
-        else{ 
-            int i,j,k;
+    double Determinan() {
+        if (this.rows == 1) {
+            return this.matrix[0][0];
+        } else if (this.rows == 2) {
+            return this.matrix[0][0] * this.matrix[1][1] - this.matrix[1][0] * this.matrix[0][1];
+        } else {
+            int i, j, k;
             double det = 0;
-            for (i = 0 ; i < this.rows ; i++){
+            for (i = 0; i < this.rows; i++) {
                 Matrix newM = new Matrix(this.rows - 1, this.columns - 1);
-                for (j = 1 ; j < this.rows ; j++){
-                    int row = j-1 , col = 0;
-                    for (k = 0 ; k < this.rows ; k++){
-                        if (k != i){
+                for (j = 1; j < this.rows; j++) {
+                    int row = j - 1, col = 0;
+                    for (k = 0; k < this.rows; k++) {
+                        if (k != i) {
                             newM.matrix[row][col] = this.matrix[j][k];
                             col++;
                         }
                     }
                 }
-                if (i % 2 == 0){
+                if (i % 2 == 0) {
                     det += this.matrix[0][i] * newM.Determinan();
+                } else {
+                    det += (-1) * this.matrix[0][i] * newM.Determinan();
                 }
-                else{det += (-1)*this.matrix[0][i] * newM.Determinan();}
             }
             return det;
         }
     }
 
-    void Transpose(){
-        int i,j;
+    void Transpose() {
+        int i, j;
         double temp;
-        for (i = 0 ; i < this.rows ; i++){
-            for(j = i ; j < this.rows ; j++){
+        for (i = 0; i < this.rows; i++) {
+            for (j = i; j < this.rows; j++) {
                 temp = this.matrix[i][j];
                 this.matrix[i][j] = this.matrix[j][i];
                 this.matrix[j][i] = temp;
@@ -74,17 +79,14 @@ public class Matrix {
         }
     }
 
-    double[][] Multiply(double[][] mIn){
+    double[][] Multiply(double[][] mIn) {
         int i, j, k;
         double[][] mOut = new double[this.rows][mIn[0].length];
-        for (i = 0; i < this.rows; i++)
-        {
-            for ( j = 0; j < mIn[0].length; j++)
-            {
+        for (i = 0; i < this.rows; i++) {
+            for (j = 0; j < mIn[0].length; j++) {
                 mOut[i][j] = 0;
-                for (k = 0; k < this.columns; k++)
-                {
-                    mOut[i][j] += this.matrix[i][k]*mIn[k][j];
+                for (k = 0; k < this.columns; k++) {
+                    mOut[i][j] += this.matrix[i][k] * mIn[k][j];
                 }
             }
         }
@@ -92,12 +94,12 @@ public class Matrix {
     }
 
     void SPL() {
-        int i,j,row=0;
-        Matrix mOut = new Matrix(this.rows, this.columns-1);
+        int i, j, row = 0;
+        Matrix mOut = new Matrix(this.rows, this.columns - 1);
         Matrix temp = new Matrix(this.rows, 1);
-        for(i=0;i<this.rows;i++){
-            for(j=0;j<this.columns;j++){
-                if(j == this.columns-1){
+        for (i = 0; i < this.rows; i++) {
+            for (j = 0; j < this.columns; j++) {
+                if (j == this.columns - 1) {
                     temp.matrix[row][0] = this.matrix[i][j];
                     row++;
                 } else {
@@ -105,56 +107,56 @@ public class Matrix {
                 }
             }
         }
-        // mOut.inverse();
+
+        System.out.println("Hasil SPL :");
+        mOut.Inverse();
         this.matrix = mOut.Multiply(temp.matrix);
         this.DisplayMatrix();
     }
 
-    void MultiplyConst(double n){
-        int i,j;
-        for(i=0;i<this.rows;i++){
-            for(j=0;j<this.columns;j++){
+    void MultiplyConst(double n) {
+        int i, j;
+        for (i = 0; i < this.rows; i++) {
+            for (j = 0; j < this.columns; j++) {
                 this.matrix[i][j] *= n;
             }
 
         }
     }
-    
+
     void Inverse() {
         int i, j, a, b;
         double det = this.Determinan();
-        Matrix cofactor = new Matrix(this.rows,this.columns);
-        for (i = 0; i < this.rows; i++)
-        {
-            for (j = 0; j < this.columns; j++)
-            {
-                Matrix tempMatrix = new Matrix(this.rows-1,this.columns-1);
+        Matrix cofactor = new Matrix(this.rows, this.columns);
+        for (i = 0; i < this.rows; i++) {
+            for (j = 0; j < this.columns; j++) {
+                Matrix tempMatrix = new Matrix(this.rows - 1, this.columns - 1);
                 int row = 0;
-                for (a = 0; a < this.rows; a++)
-                {
+                for (a = 0; a < this.rows; a++) {
                     int col = 0;
-                    for (b = 0; b < this.columns; b++)
-                    {
-                        if (a != i && b != j)
-                        {
+                    for (b = 0; b < this.columns; b++) {
+                        if (a != i && b != j) {
                             tempMatrix.matrix[row][col] = this.matrix[a][b];
                             col++;
                         }
                     }
-                    if(a!=i){row++;}
+                    if (a != i) {
+                        row++;
+                    }
                 }
-                if ((i + j) % 2 == 0)
-                {
+                if ((i + j) % 2 == 0) {
                     cofactor.matrix[i][j] = tempMatrix.Determinan();
-                }
-                else
-                {
+                } else {
                     cofactor.matrix[i][j] = (-1) * tempMatrix.Determinan();
                 }
             }
         }
-        cofactor.Transpose();
-        cofactor.MultiplyConst(1/det);
-        this.matrix = cofactor.matrix;
+        if (this.Determinan() == 0) {
+            System.out.println("Matriks tidak memiliki invers!");
+        } else {
+            cofactor.Transpose();
+            cofactor.MultiplyConst(1 / det);
+            this.matrix = cofactor.matrix;
+        }
     }
 }
