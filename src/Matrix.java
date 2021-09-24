@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import javax.rmi.ssl.SslRMIClientSocketFactory;
-
 public class Matrix {
     int rows, columns;
     double[][] matrix;
