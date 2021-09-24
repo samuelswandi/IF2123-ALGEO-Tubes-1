@@ -225,4 +225,41 @@ public class Matrix {
             this.matrix = cofactor.matrix;
         }
     }
+
+    void gaussTransform(){
+        /* I.S. = Matrix Terdefinisi */
+        /* F.S. = Terbentuk Matrix eselon baris */
+        for (int i = 0 ; i < this.rows ; i++){
+            for(int indexRow = i ; indexRow < this.rows ; indexRow++){
+                double divisor = 0;
+                for(int indexCol = i ; indexCol < this.columns ; indexCol++){
+                    if (indexRow == i){
+                        if (indexRow == indexCol){
+                            divisor = this.matrix[indexRow][indexCol];
+                            this.matrix[indexRow][indexCol] /= divisor;
+                        }
+                        else{
+                            this.matrix[indexRow][indexCol] /= divisor;
+                        }
+                    }
+                    else{
+                        this.matrix[indexRow][indexCol] -= this.matrix[i][indexCol] * this.matrix[indexRow][indexCol];
+                    }
+                }
+            }
+        }
+    }
+
+    void gaussJordanTransform(){
+        /* I.S. = Matrix Terdefinisi */
+        /* F.S. = Terbentuk Matrix eselon baris */
+        this.gaussTransform();
+        for (int i = 0 ; i < this.rows ; i++){
+            for(int indexRow = 0 ; indexRow < i ; indexRow++){
+                for(int indexCol = 0 ; indexCol < this.columns ; indexCol++){
+                    this.matrix[indexRow][indexCol] -= this.matrix[i][indexCol] * this.matrix[indexRow][indexCol];
+                }
+            }
+        }
+    }
 }
