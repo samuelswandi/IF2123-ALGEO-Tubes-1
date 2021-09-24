@@ -72,8 +72,16 @@ public class Main {
           choice = in.nextInt();
           break;
         case 3:
-
-
+          while(matrix.Determinan()==0){
+            System.out.print("Determinan dari matriks adalah 0, silahkan masukkan matriks kembali!\n");
+            matrix.CreateMatrix();
+            System.out.println("Matriks yang telah dibuat: ");
+            matrix.DisplayMatrix();
+          }
+          System.out.println("Matriks Balikan : ");
+          matrix.Inverse();
+          matrix.DisplayMatrix();
+          
           System.out.print("Masukkan angka untuk memilih operasi lain: ");
           choice = in.nextInt();
           break;
