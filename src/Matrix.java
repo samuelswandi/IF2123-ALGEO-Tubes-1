@@ -13,8 +13,10 @@ public class Matrix {
     }
 
 
-    /* KELOMPOK KONSTRUKTOR */
     void CreateMatrix() {
+        /* Membaca dan membentuk matrix dari class Matrix */
+        /* I.S. = - */
+        /* F.S. = Terbentuk Matrix sesuai dengan inputan pengguna */ 
         System.out.print("Masukkan ukuran matriks: ");
         Scanner in = new Scanner(System.in);
         this.rows = in.nextInt();
@@ -32,6 +34,12 @@ public class Matrix {
     }
 
     void DisplayMatrix() {
+        /* Mencetak matrix ke layar */
+        /* I.S. = Matrix bebas terdefinisi */
+        /* F.S. = Tercetak elemen-elemen Matrix ke layar sesuai dengan format penulisan matriks
+                  contoh : 1 0 0
+                           0 1 0
+                           0 0 1  */ 
         for (double[] row : this.matrix) {
             for (double col : row) {
                 System.out.print(col + " ");
@@ -40,9 +48,10 @@ public class Matrix {
         }
     }
 
-    /*KELOMPOK OPERASI PRIMITIF TERHADAP MATRIX */
-
+    /***** KELOMPOK OPERASI PRIMITIF TERHADAP MATRIX *****/
     double Determinan() {
+        /* Prekondisi: Matrix berjenis matriks persegi (berukuran N x N) */
+        /* Menghitung nilai determinan Matrix */
         if (this.rows == 1) {
             return this.matrix[0][0];
         } else if (this.rows == 2) {
@@ -72,6 +81,10 @@ public class Matrix {
     }
 
     void Transpose() {
+        /* Menghasilkan matrix transpose */
+        /* I.S. = Matrix persegi terdefinisi (Matriks berukuran N x N) */
+        /* F.S. = Terbentuk matriks transpose dengan definisi dari matriks transpose
+                  adalah newMatrix[i][j] = oldMatrix[j][i] */ 
         int i, j;
         double temp;
         for (i = 0; i < this.rows; i++) {
@@ -84,6 +97,8 @@ public class Matrix {
     }
 
     double[][] Multiply(double[][] mIn) {
+        /* Prekondisi : Ukuran kolom efektif Matrix = ukuran baris efektif mIn */
+        /* Mengirim hasil perkalian matriks berupa array double 2-Dimensi */
         int i, j, k;
         double[][] mOut = new double[this.rows][mIn[0].length];
         for (i = 0; i < this.rows; i++) {
@@ -98,6 +113,9 @@ public class Matrix {
     }
 
     void MultiplyConst(double n) {
+        /* Mengalikan setiap element matriks dengan konstanta n */
+        /* I.S. = Matrix terdefinisi */
+        /* F.S. = Terbentuk Matrix yang setiap elementnya telah dikalikan dengan konstanta n  */
         int i, j;
         for (i = 0; i < this.rows; i++) {
             for (j = 0; j < this.columns; j++) {
@@ -108,8 +126,12 @@ public class Matrix {
     }
 
 
-    /* KELOMPOK PENYELESAIAN SPL MATRIX */
+    /***** KELOMPOK PENYELESAIAN SPL MATRIX *****/
     void SPLbalikan() {
+        /* Mencari Solusi SPL dengan metode inverse */
+        /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
+        /* F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N = banyaknya 
+                  baris matrix augmented yang dipisahkan dengan newline (\n)  */
         int i, j, row = 0;
         Matrix mOut = new Matrix(this.rows, this.columns - 1);
         Matrix temp = new Matrix(this.rows, 1);
@@ -126,11 +148,16 @@ public class Matrix {
 
         System.out.println("Hasil SPL :");
         mOut.Inverse();
-        this.matrix = mOut.Multiply(temp.matrix);   /* Size matrix juga berubah ,  apa ga sekalian diubah?*/
+        this.matrix = mOut.Multiply(temp.matrix);
+        this.columns = 1;
         this.DisplayMatrix();
     }
 
     void SPLcramer(){
+        /* Mencari Solusi SPL dengan kaidah cramer */
+        /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
+        /* F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N = banyaknya 
+                  baris matrix augmented yang dipisahkan dengan newline (\n)  */
         double det = this.Determinan();
         Matrix result = new Matrix(this.rows,1);
         for(int i = 0 ; i < this.rows ; i++){
@@ -157,8 +184,13 @@ public class Matrix {
 
 
 
-    /* KELOMPOK PENYELESAIAN INVERSE MATRIX */
+    /***** KELOMPOK PENYELESAIAN INVERSE MATRIX *****/
     void Inverse() {
+        /* Menghasilkan inverse / balikan dari suatu matriks */
+        /* I.S. = Matrix terdefinisi bebas */
+        /* F.S. = Matriks yang bersangkutan akan berubah menjadi matriks balikan terdefinisi
+                  , sebaliknya apabila tidak memiliki balikan akan tercetak pesan peringatan
+                  pada layar.  */
         int i, j, a, b;
         double det = this.Determinan();
         Matrix cofactor = new Matrix(this.rows, this.columns);
