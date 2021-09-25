@@ -61,7 +61,7 @@ public class Matrix {
             double det = 0;
             for (i = 0; i < this.rows; i++) {
                 Matrix newM = new Matrix(this.rows - 1, this.columns - 1);
-                for (j = 1; j < this.rows; j++) {
+                for (j = 1; j < this.columns; j++) {
                     int row = j - 1, col = 0;
                     for (k = 0; k < this.rows; k++) {
                         if (k != i) {
@@ -110,6 +110,30 @@ public class Matrix {
             }
         }
         return mOut;
+    }
+
+    void add (double[][] mIn){
+        /* Menambahkan elemen pada matrix utama dengan matrix lain*/
+        /* I.S. = Matrix terdefinisi, jumlah baris dan kolom kedua matriks sama */
+        /* F.S. = Menambah matrix utama dengan matriks input  */
+        int i, j;
+        for (i=0;i<this.rows;i++){
+            for (j=0; j<this.columns;j++){
+                this.matrix[i][j]+=mIn[i][j];
+            }
+        }
+
+    }
+    void substract (double[][] mIn){
+        /* Mengurangkan elemen pada matrix utama dengan matrix lain*/
+        /* I.S. = Matrix terdefinisi, jumlah baris dan kolom kedua matriks sama */
+        /* F.S. = Mengurangkan matrix utama dengan matriks input  */
+        int i, j;
+        for (i=0;i<this.rows;i++){
+            for (j=0; j<this.columns;j++){
+                this.matrix[i][j]-=mIn[i][j];
+            }
+        }  
     }
 
     void MultiplyConst(double n) {
