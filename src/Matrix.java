@@ -286,4 +286,14 @@ public class Matrix {
             }
         }
     }
+    void interpolation(double x){
+        this.SPLbalikan();
+        int i;
+        double y = 0;
+        for (i=0; i<this.rows; i++){
+            y = y + this.matrix[i][0]*(Math.pow(x,i));
+        }
+        System.out.print("hasil: ");
+        System.out.println(y);
+    }
 }
