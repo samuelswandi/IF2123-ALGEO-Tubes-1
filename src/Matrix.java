@@ -86,6 +86,7 @@ public class Matrix {
          */
         int i, j;
         double temp;
+
         if (this.rows == this.columns){
             for (i = 0; i < this.rows; i++) {
                 for (j = i; j < this.rows; j++) {
@@ -108,12 +109,6 @@ public class Matrix {
         }
     }
 
-    
-    
-    
-
-
-    
     double[][] Multiply(double[][] mIn) {
         /* Prekondisi : Ukuran kolom efektif Matrix = ukuran baris efektif mIn */
         /* Mengirim hasil perkalian matriks berupa array double 2-Dimensi */

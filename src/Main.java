@@ -16,7 +16,7 @@ public class Main {
 
     System.out.print("Silahkan masukan angka untuk pengolahan matriks: ");
     int choice = in.nextInt();
-    Matrix matrix = new Matrix(0,0);
+    Matrix matrix = new Matrix(0, 0);
 
     while (choice != 6) {
       matrix.CreateMatrix();
@@ -30,44 +30,71 @@ public class Main {
           System.out.println("3. Metode matriks balikan ");
           System.out.println("4. Kaidah Cramer ");
           System.out.print("Masukkan angka untuk memilih metode: ");
-          // int case1Choice = in.nextInt();
+          int case1Choice = in.nextInt();
 
-          // SPL spl = new SPL(matrix.columns,matrix.rows);
-          // spl.SolveSPL(case1Choice);
+          switch (case1Choice) {
+            case 1:
+              matrix.GaussTransform();
+              matrix.DisplayMatrix();
+              break;
+            case 2:
+              matrix.GaussJordanTransform();
+              matrix.DisplayMatrix();
+              break;
+            case 3:
+              // Metode invers
+              matrix.SPLbalikan();
 
-          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+              break;
+            case 4:
+              matrix.SPLcramer();
+              break;
+            default:
+
+              break;
+          }
+
+          System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
         case 2:
-        while(matrix.rows != matrix.columns){
-          System.out.print("Matrix bukan merupakan matriks persegi, silahkan masukkan matriks kembali!\n");
-          matrix.CreateMatrix();
-          System.out.println("Matriks yang telah dibuat: ");
-          matrix.DisplayMatrix();
-        }
+          while (matrix.rows != matrix.columns) {
+            System.out.print("Matrix bukan merupakan matriks persegi, silahkan masukkan matriks kembali!\n");
+            matrix.CreateMatrix();
+            System.out.println("Matriks yang telah dibuat: ");
+            matrix.DisplayMatrix();
+          }
           System.out.print("Determinan dari matriks adalah :");
-          
+
           double det = matrix.Determinan();
           System.out.print(det);
 
-          System.out.print("\nMasukkan angka untuk memilih operasi lain: ");
+          System.out.print("\nMasukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
         case 3:
+          while (matrix.Determinan() == 0) {
+            System.out.print("Determinan dari matriks adalah 0, silahkan masukkan matriks kembali!\n");
+            matrix.CreateMatrix();
+            System.out.println("Matriks yang telah dibuat: ");
+            matrix.DisplayMatrix();
+          }
+          System.out.println("Matriks Balikan : ");
+          matrix.Inverse();
+          matrix.DisplayMatrix();
 
-
-          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+          System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
 
         case 4:
-          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+          System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
 
         case 5:
 
-          System.out.print("Masukkan angka untuk memilih operasi lain: ");
+          System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
         default:
