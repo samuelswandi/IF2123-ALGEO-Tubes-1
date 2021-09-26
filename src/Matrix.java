@@ -86,12 +86,26 @@ public class Matrix {
          */
         int i, j;
         double temp;
-        for (i = 0; i < this.rows; i++) {
-            for (j = i; j < this.rows; j++) {
-                temp = this.matrix[i][j];
-                this.matrix[i][j] = this.matrix[j][i];
-                this.matrix[j][i] = temp;
+
+        if (this.rows == this.columns){
+            for (i = 0; i < this.rows; i++) {
+                for (j = i; j < this.rows; j++) {
+                    temp = this.matrix[i][j];
+                    this.matrix[i][j] = this.matrix[j][i];
+                    this.matrix[j][i] = temp;
+                }
             }
+        }else{
+            Matrix mOut = new Matrix(this.columns, this.rows);
+            for (i = 0; i<this.columns; i++){
+                for (j=0; j<this.rows; j++){
+                    mOut.matrix[i][j] = this.matrix[j][i];
+                }
+            }
+            this.matrix = mOut.matrix;
+            this.rows = mOut.rows;
+            this.columns = mOut.columns;
+
         }
     }
 
