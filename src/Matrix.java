@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import javax.rmi.ssl.SslRMIClientSocketFactory;
-
 public class Matrix {
     int rows, columns;
     double[][] matrix;
@@ -12,11 +10,10 @@ public class Matrix {
         this.matrix = new double[rows][columns];
     }
 
-
     void CreateMatrix() {
         /* Membaca dan membentuk matrix dari class Matrix */
         /* I.S. = - */
-        /* F.S. = Terbentuk Matrix sesuai dengan inputan pengguna */ 
+        /* F.S. = Terbentuk Matrix sesuai dengan inputan pengguna */
         System.out.print("Masukkan ukuran matriks: ");
         Scanner in = new Scanner(System.in);
         this.rows = in.nextInt();
@@ -36,10 +33,10 @@ public class Matrix {
     void DisplayMatrix() {
         /* Mencetak matrix ke layar */
         /* I.S. = Matrix bebas terdefinisi */
-        /* F.S. = Tercetak elemen-elemen Matrix ke layar sesuai dengan format penulisan matriks
-                  contoh : 1 0 0
-                           0 1 0
-                           0 0 1  */ 
+        /*
+         * F.S. = Tercetak elemen-elemen Matrix ke layar sesuai dengan format penulisan
+         * matriks contoh : 1 0 0 0 1 0 0 0 1
+         */
         for (double[] row : this.matrix) {
             for (double col : row) {
                 System.out.print(col + " ");
@@ -83,8 +80,10 @@ public class Matrix {
     void Transpose() {
         /* Menghasilkan matrix transpose */
         /* I.S. = Matrix persegi terdefinisi (Matriks berukuran N x N) */
-        /* F.S. = Terbentuk matriks transpose dengan definisi dari matriks transpose
-                  adalah newMatrix[i][j] = oldMatrix[j][i] */ 
+        /*
+         * F.S. = Terbentuk matriks transpose dengan definisi dari matriks transpose
+         * adalah newMatrix[i][j] = oldMatrix[j][i]
+         */
         int i, j;
         double temp;
         for (i = 0; i < this.rows; i++) {
@@ -112,34 +111,38 @@ public class Matrix {
         return mOut;
     }
 
-    void add (double[][] mIn){
-        /* Menambahkan elemen pada matrix utama dengan matrix lain*/
+    void Add(double[][] mIn) {
+        /* Menambahkan elemen pada matrix utama dengan matrix lain */
         /* I.S. = Matrix terdefinisi, jumlah baris dan kolom kedua matriks sama */
-        /* F.S. = Menambah matrix utama dengan matriks input  */
+        /* F.S. = Menambah matrix utama dengan matriks input */
         int i, j;
-        for (i=0;i<this.rows;i++){
-            for (j=0; j<this.columns;j++){
-                this.matrix[i][j]+=mIn[i][j];
+        for (i = 0; i < this.rows; i++) {
+            for (j = 0; j < this.columns; j++) {
+                this.matrix[i][j] += mIn[i][j];
             }
         }
 
     }
-    void substract (double[][] mIn){
-        /* Mengurangkan elemen pada matrix utama dengan matrix lain*/
+
+    void Substract(double[][] mIn) {
+        /* Mengurangkan elemen pada matrix utama dengan matrix lain */
         /* I.S. = Matrix terdefinisi, jumlah baris dan kolom kedua matriks sama */
-        /* F.S. = Mengurangkan matrix utama dengan matriks input  */
+        /* F.S. = Mengurangkan matrix utama dengan matriks input */
         int i, j;
-        for (i=0;i<this.rows;i++){
-            for (j=0; j<this.columns;j++){
-                this.matrix[i][j]-=mIn[i][j];
+        for (i = 0; i < this.rows; i++) {
+            for (j = 0; j < this.columns; j++) {
+                this.matrix[i][j] -= mIn[i][j];
             }
-        }  
+        }
     }
 
     void MultiplyConst(double n) {
         /* Mengalikan setiap element matriks dengan konstanta n */
         /* I.S. = Matrix terdefinisi */
-        /* F.S. = Terbentuk Matrix yang setiap elementnya telah dikalikan dengan konstanta n  */
+        /*
+         * F.S. = Terbentuk Matrix yang setiap elementnya telah dikalikan dengan
+         * konstanta n
+         */
         int i, j;
         for (i = 0; i < this.rows; i++) {
             for (j = 0; j < this.columns; j++) {
@@ -149,13 +152,14 @@ public class Matrix {
         }
     }
 
-
     /***** KELOMPOK PENYELESAIAN SPL MATRIX *****/
     void SPLbalikan() {
         /* Mencari Solusi SPL dengan metode inverse */
         /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
-        /* F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N = banyaknya 
-                  baris matrix augmented yang dipisahkan dengan newline (\n)  */
+        /*
+         * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
+         * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
+         */
         int i, j, row = 0;
         Matrix mOut = new Matrix(this.rows, this.columns - 1);
         Matrix temp = new Matrix(this.rows, 1);
@@ -177,27 +181,28 @@ public class Matrix {
         this.DisplayMatrix();
     }
 
-    void SPLcramer(){
+    void SPLcramer() {
         /* Mencari Solusi SPL dengan kaidah cramer */
         /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
-        /* F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N = banyaknya 
-                  baris matrix augmented yang dipisahkan dengan newline (\n)  */
+        /*
+         * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
+         * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
+         */
         double det = this.Determinan();
-        Matrix result = new Matrix(this.rows,1);
-        for(int i = 0 ; i < this.rows ; i++){
+        Matrix result = new Matrix(this.rows, 1);
+        for (int i = 0; i < this.rows; i++) {
             // Temporary Matrix for Value Assigning
             Matrix temp = new Matrix(this.rows, this.columns - 1);
-            for(int tempRow = 0 ; tempRow < this.rows ; tempRow++){
-                for(int tempCol = 0 ; tempCol < this.columns - 1 ; tempCol++){
-                    if (tempCol == i){
+            for (int tempRow = 0; tempRow < this.rows; tempRow++) {
+                for (int tempCol = 0; tempCol < this.columns - 1; tempCol++) {
+                    if (tempCol == i) {
                         temp.matrix[tempRow][tempCol] = this.matrix[tempRow][this.columns - 1];
-                    }
-                    else{
+                    } else {
                         temp.matrix[tempRow][tempCol] = this.matrix[tempRow][tempCol];
                     }
                 }
             }
-            //Assign Temporary Matrix Determinant for Variable's Resolver
+            // Assign Temporary Matrix Determinant for Variable's Resolver
             result.matrix[i][0] = temp.Determinan() / det;
         }
         System.out.println("Hasil SPL :");
@@ -206,15 +211,15 @@ public class Matrix {
         this.DisplayMatrix();
     }
 
-
-
     /***** KELOMPOK PENYELESAIAN INVERSE MATRIX *****/
     void Inverse() {
         /* Menghasilkan inverse / balikan dari suatu matriks */
         /* I.S. = Matrix terdefinisi bebas */
-        /* F.S. = Matriks yang bersangkutan akan berubah menjadi matriks balikan terdefinisi
-                  , sebaliknya apabila tidak memiliki balikan akan tercetak pesan peringatan
-                  pada layar.  */
+        /*
+         * F.S. = Matriks yang bersangkutan akan berubah menjadi matriks balikan
+         * terdefinisi , sebaliknya apabila tidak memiliki balikan akan tercetak pesan
+         * peringatan pada layar.
+         */
         int i, j, a, b;
         double det = this.Determinan();
         Matrix cofactor = new Matrix(this.rows, this.columns);
@@ -250,23 +255,21 @@ public class Matrix {
         }
     }
 
-    void gaussTransform(){
+    void GaussTransform() {
         /* I.S. = Matrix Terdefinisi */
         /* F.S. = Terbentuk Matrix eselon baris */
-        for (int i = 0 ; i < this.rows ; i++){
-            for(int indexRow = i ; indexRow < this.rows ; indexRow++){
+        for (int i = 0; i < this.rows; i++) {
+            for (int indexRow = i; indexRow < this.rows; indexRow++) {
                 double divisor = 0;
-                for(int indexCol = i ; indexCol < this.columns ; indexCol++){
-                    if (indexRow == i){
-                        if (indexRow == indexCol){
+                for (int indexCol = i; indexCol < this.columns; indexCol++) {
+                    if (indexRow == i) {
+                        if (indexRow == indexCol) {
                             divisor = this.matrix[indexRow][indexCol];
                             this.matrix[indexRow][indexCol] /= divisor;
-                        }
-                        else{
+                        } else {
                             this.matrix[indexRow][indexCol] /= divisor;
                         }
-                    }
-                    else{
+                    } else {
                         this.matrix[indexRow][indexCol] -= this.matrix[i][indexCol] * this.matrix[indexRow][indexCol];
                     }
                 }
@@ -274,24 +277,25 @@ public class Matrix {
         }
     }
 
-    void gaussJordanTransform(){
+    void GaussJordanTransform() {
         /* I.S. = Matrix Terdefinisi */
         /* F.S. = Terbentuk Matrix eselon baris */
-        this.gaussTransform();
-        for (int i = 0 ; i < this.rows ; i++){
-            for(int indexRow = 0 ; indexRow < i ; indexRow++){
-                for(int indexCol = 0 ; indexCol < this.columns ; indexCol++){
+        this.GaussTransform();
+        for (int i = 0; i < this.rows; i++) {
+            for (int indexRow = 0; indexRow < i; indexRow++) {
+                for (int indexCol = 0; indexCol < this.columns; indexCol++) {
                     this.matrix[indexRow][indexCol] -= this.matrix[i][indexCol] * this.matrix[indexRow][indexCol];
                 }
             }
         }
     }
-    void interpolation(double x){
+
+    void interpolation(double x) {
         this.SPLbalikan();
         int i;
         double y = 0;
-        for (i=0; i<this.rows; i++){
-            y = y + this.matrix[i][0]*(Math.pow(x,i));
+        for (i = 0; i < this.rows; i++) {
+            y = y + this.matrix[i][0] * (Math.pow(x, i));
         }
         System.out.print("hasil: ");
         System.out.println(y);

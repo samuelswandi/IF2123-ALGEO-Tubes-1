@@ -34,11 +34,11 @@ public class Main {
 
           switch (case1Choice) {
             case 1:
-              matrix.gaussTransform();
+              matrix.GaussTransform();
               matrix.DisplayMatrix();
               break;
             case 2:
-              matrix.gaussJordanTransform();
+              matrix.GaussJordanTransform();
               matrix.DisplayMatrix();
               break;
             case 3:
