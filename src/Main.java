@@ -88,6 +88,22 @@ public class Main {
           break;
 
         case 4:
+          String x= in.nextLine();
+          x = x.replaceAll(" ","").replaceAll("\\(","").replaceAll("\\)","");
+          String[] arrayIn = x.split(",");
+          double[] arrayDouble = new double[Integer.parseInt(arrayIn[0])*2+2];
+          for (int i=0; i<Integer.parseInt(arrayIn[0])*2+2;i++){
+              arrayDouble[i] = Double.parseDouble(arrayIn[i]);
+          }
+              for (double a : arrayDouble)
+                  System.out.println(a);
+            Matrix matrixInterpolasi = new Matrix(Integer.parseInt(arrayIn[0]), 2);
+          for (int i=0;i<matrixInterpolasi.rows;i++ ){
+            for (int j=0;j<matrixInterpolasi.columns;j++){
+              
+            }
+          }
+          matrixInterpolasi.interpolation(Integer.parseInt(arrayIn[arrayIn.length-1]));
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
