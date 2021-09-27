@@ -90,17 +90,23 @@ public class Main {
         case 4:
           String x= in.nextLine();
           x = x.replaceAll(" ","").replaceAll("\\(","").replaceAll("\\)","");
+          // arrayIn still contains n and x (x which y is searched)
           String[] arrayIn = x.split(",");
-          double[] arrayDouble = new double[Integer.parseInt(arrayIn[0])*2+2];
-          for (int i=0; i<Integer.parseInt(arrayIn[0])*2+2;i++){
-              arrayDouble[i] = Double.parseDouble(arrayIn[i]);
+          Integer n = Integer.parseInt(arrayIn[0]);
+          Double xIn = Double.parseDouble(arrayIn[arrayIn.length-1]);
+          // arrayDouble contains only the provided data of x and y
+          double[] arrayDouble = new double[n*2];
+          for (int i=0; i<n*2;i++){
+              arrayDouble[i] = Double.parseDouble(arrayIn[i+1]);
           }
-              for (double a : arrayDouble)
-                  System.out.println(a);
-            Matrix matrixInterpolasi = new Matrix(Integer.parseInt(arrayIn[0]), 2);
-          for (int i=0;i<matrixInterpolasi.rows;i++ ){
-            for (int j=0;j<matrixInterpolasi.columns;j++){
-              
+          Matrix matrixInterpolasi = new Matrix(n,n+1);
+          for(int i=0; i<matrixInterpolasi.rows;i=i+2){
+            for (int j=0; j<matrixInterpolasi.columns;j++){
+              if (j!=matrixInterpolasi.columns-2){
+                matrixInterpolasi.matrix[i][j] = Math.pow(arrayDouble[i], j);
+              } else{
+                matrixInterpolasi.matrix[i][j] = arrayDouble[i+1];
+              }
             }
           }
           matrixInterpolasi.interpolation(Integer.parseInt(arrayIn[arrayIn.length-1]));
