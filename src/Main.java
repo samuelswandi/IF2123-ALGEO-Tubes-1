@@ -109,7 +109,7 @@ public class Main {
           break;
 
         case 5:
-
+          matrix.multipleLinearReg(0.5,76,29.30);
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
