@@ -19,11 +19,12 @@ public class Main {
     Matrix matrix = new Matrix(0, 0);
 
     while (choice != 6) {
-      matrix.CreateMatrix();
-      System.out.println("Matriks yang telah dibuat: ");
-      matrix.DisplayMatrix();
       switch (choice) {
         case 1:
+          matrix.CreateMatrix();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
+
           System.out.println("Penyelesaian matriks menggunakan : ");
           System.out.println("1. Metode eliminasi Gauss");
           System.out.println("2. Metode eliminasi Gauss-Jordan ");
@@ -58,13 +59,11 @@ public class Main {
           choice = in.nextInt();
           break;
         case 2:
-          while (matrix.rows != matrix.columns) {
-            System.out.print("Matrix bukan merupakan matriks persegi, silahkan masukkan matriks kembali!\n");
-            matrix.CreateMatrix();
-            System.out.println("Matriks yang telah dibuat: ");
-            matrix.DisplayMatrix();
-          }
-          System.out.print("Determinan dari matriks adalah :");
+          matrix.CreateMatrix2();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
+          
+          System.out.print("Determinan dari matriks adalah: ");
 
           double det = matrix.Determinan();
           System.out.print(det);
@@ -73,12 +72,10 @@ public class Main {
           choice = in.nextInt();
           break;
         case 3:
-          while (matrix.Determinan() == 0) {
-            System.out.print("Determinan dari matriks adalah 0, silahkan masukkan matriks kembali!\n");
-            matrix.CreateMatrix();
-            System.out.println("Matriks yang telah dibuat: ");
-            matrix.DisplayMatrix();
-          }
+          matrix.CreateMatrix2();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
+
           System.out.println("Matriks Balikan : ");
           matrix.Inverse();
           matrix.DisplayMatrix();
@@ -88,6 +85,10 @@ public class Main {
           break;
 
         case 4:
+          matrix.CreateMatrix();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
+
           String x= in.nextLine();
           x = x.replaceAll(" ","").replaceAll("\\(","").replaceAll("\\)","");
           String[] arrayIn = x.split(",");
@@ -109,6 +110,10 @@ public class Main {
           break;
 
         case 5:
+          matrix.CreateMatrix();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
+
           matrix.multipleLinearReg(0.5,76,29.30);
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();

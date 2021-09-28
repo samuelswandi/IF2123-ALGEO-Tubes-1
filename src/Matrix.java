@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 
 public class Matrix {
@@ -14,19 +15,104 @@ public class Matrix {
         /* Membaca dan membentuk matrix dari class Matrix */
         /* I.S. = - */
         /* F.S. = Terbentuk Matrix sesuai dengan inputan pengguna */
-        System.out.print("Masukkan ukuran matriks: ");
         Scanner in = new Scanner(System.in);
-        this.rows = in.nextInt();
-        this.columns = in.nextInt();
-
-        System.out.println("Masukkan elemen matriks : ");
-        this.matrix = new double[rows][columns];
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                this.matrix[i][j] = in.nextFloat();
+        System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file) : ");
+        int choice = in.nextInt();
+        if(choice == 1){
+            System.out.print("Masukkan ukuran matriks (m x n): ");
+            this.rows = in.nextInt();
+            this.columns = in.nextInt();
+    
+            System.out.println("Masukkan elemen matriks: ");
+            this.matrix = new double[rows][columns];
+    
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    this.matrix[i][j] = in.nextFloat();
+                }
             }
+        } else if (choice == 2){
+            try {
+                System.out.print("Silahkan masukkan nama file: ");
+                Scanner scnr = new Scanner(System.in);
+                File text = new File(scnr.nextLine());
+                scnr = new Scanner(text);
+                
+                System.out.print("Masukkan ukuran matriks (m x n): ");
+                this.rows = in.nextInt();
+                this.columns = in.nextInt();
+                this.matrix = new double[rows][columns];
+    
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < columns; j++) {
+                        this.matrix[i][j] = scnr.nextDouble();
+                    }
+                }
+                scnr.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+           
+
+
+        } else {
+            System.out.println("Pilihan yang anda masukkan salah");
         }
+        
+
+    }
+
+
+    void CreateMatrix2() { // Untuk kasus determinan dan matriks balikan, yang input matriks hanya n, dan ukuran matriks harus nxn
+        /* Membaca dan membentuk matrix dari class Matrix */
+        /* I.S. = - */
+        /* F.S. = Terbentuk Matrix sesuai dengan inputan pengguna */
+        Scanner in = new Scanner(System.in);
+        System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file): ");
+        int choice = in.nextInt();
+        if(choice == 1){
+            System.out.print("Masukkan ukuran matriks (n x n): ");
+            int n = in.nextInt();
+            this.rows = n;
+            this.columns = n;
+    
+            System.out.println("Masukkan elemen matriks: ");
+            this.matrix = new double[n][n];
+    
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    this.matrix[i][j] = in.nextFloat();
+                }
+            }
+        } else if (choice == 2){
+            try {
+                System.out.print("Silahkan masukkan nama file: ");
+                Scanner scnr = new Scanner(System.in);
+                File text = new File(scnr.nextLine());
+                scnr = new Scanner(text);
+                
+                System.out.print("Masukkan ukuran matriks (n x n): ");
+                int n = in.nextInt();
+                this.rows = n;
+                this.columns = n;
+                this.matrix = new double[n][n];
+    
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < columns; j++) {
+                        this.matrix[i][j] = scnr.nextDouble();
+                    }
+                }
+                scnr.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+           
+
+
+        } else {
+            System.out.println("Pilihan yang anda masukkan salah");
+        }
+        
 
     }
 
