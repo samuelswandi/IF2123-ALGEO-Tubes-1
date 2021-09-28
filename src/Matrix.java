@@ -411,10 +411,25 @@ public class Matrix {
                 // eq.matrix[i][j] =
             }
         }
+
+        eq.SPLbalikan();
+
+        for (int i=0; i<eq.rows;i++){
+            for (int j=0;j<eq.rows;j++){
+                if (i==eq.rows-2){
+                    System.out.print(eq.matrix[i][j]+"b"+j);
+                }else if(i==eq.rows-1){
+                    System.out.print(" = "+eq.matrix[i][j]);
+                }else{
+                    System.out.print(eq.matrix[i][j]+"b"+j+" + ");
+                }
+            }
+            System.out.println("");
+        }
+
         double[] data = { 1, humidity, temp, p };
         String pers = "y = ";
         double y = 0;
-        eq.SPLbalikan();
         for (int i = 0; i < eq.rows; i++) {
             y = y + eq.matrix[i][0] * (data[i]);
             if (i == 0) {
@@ -425,6 +440,7 @@ public class Matrix {
                 pers += eq.matrix[i][0] + "+ x" + i;
             }
         }
+        
         System.out.println("Persamaan yang diperoleh: ");
         System.out.println(pers);
         System.out.println("Untuk data humidity " + humidity + " temperature " + temp + " dan pressure " + p
