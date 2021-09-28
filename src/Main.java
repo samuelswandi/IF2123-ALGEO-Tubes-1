@@ -62,7 +62,7 @@ public class Main {
           matrix.CreateMatrix2();
           System.out.println("Matriks yang telah dibuat: ");
           matrix.DisplayMatrix();
-          
+
           System.out.print("Determinan dari matriks adalah: ");
 
           double det = matrix.Determinan();
@@ -89,22 +89,22 @@ public class Main {
           System.out.println("Matriks yang telah dibuat: ");
           matrix.DisplayMatrix();
 
-          String x= in.nextLine();
-          x = x.replaceAll(" ","").replaceAll("\\(","").replaceAll("\\)","");
+          String x = in.nextLine();
+          x = x.replaceAll(" ", "").replaceAll("\\(", "").replaceAll("\\)", "");
           String[] arrayIn = x.split(",");
-          double[] arrayDouble = new double[Integer.parseInt(arrayIn[0])*2+2];
-          for (int i=0; i<Integer.parseInt(arrayIn[0])*2+2;i++){
-              arrayDouble[i] = Double.parseDouble(arrayIn[i]);
+          double[] arrayDouble = new double[Integer.parseInt(arrayIn[0]) * 2 + 2];
+          for (int i = 0; i < Integer.parseInt(arrayIn[0]) * 2 + 2; i++) {
+            arrayDouble[i] = Double.parseDouble(arrayIn[i]);
           }
-              for (double a : arrayDouble)
-                  System.out.println(a);
-            Matrix matrixInterpolasi = new Matrix(Integer.parseInt(arrayIn[0]), 2);
-          for (int i=0;i<matrixInterpolasi.rows;i++ ){
-            for (int j=0;j<matrixInterpolasi.columns;j++){
-              
+          for (double a : arrayDouble)
+            System.out.println(a);
+          Matrix matrixInterpolasi = new Matrix(Integer.parseInt(arrayIn[0]), 2);
+          for (int i = 0; i < matrixInterpolasi.rows; i++) {
+            for (int j = 0; j < matrixInterpolasi.columns; j++) {
+
             }
           }
-          matrixInterpolasi.interpolation(Integer.parseInt(arrayIn[arrayIn.length-1]));
+          matrixInterpolasi.interpolation(Integer.parseInt(arrayIn[arrayIn.length - 1]));
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
@@ -114,7 +114,7 @@ public class Main {
           System.out.println("Matriks yang telah dibuat: ");
           matrix.DisplayMatrix();
 
-          matrix.multipleLinearReg(0.5,76,29.30);
+          matrix.multipleLinearReg(0.5, 76, 29.30);
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;

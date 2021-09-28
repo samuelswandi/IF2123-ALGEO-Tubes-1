@@ -18,31 +18,31 @@ public class Matrix {
         Scanner in = new Scanner(System.in);
         System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file) : ");
         int choice = in.nextInt();
-        if(choice == 1){
+        if (choice == 1) {
             System.out.print("Masukkan ukuran matriks (m x n): ");
             this.rows = in.nextInt();
             this.columns = in.nextInt();
-    
+
             System.out.println("Masukkan elemen matriks: ");
             this.matrix = new double[rows][columns];
-    
+
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     this.matrix[i][j] = in.nextFloat();
                 }
             }
-        } else if (choice == 2){
+        } else if (choice == 2) {
             try {
                 System.out.print("Silahkan masukkan nama file: ");
                 Scanner scnr = new Scanner(System.in);
                 File text = new File(scnr.nextLine());
                 scnr = new Scanner(text);
-                
+
                 System.out.print("Masukkan ukuran matriks (m x n): ");
                 this.rows = in.nextInt();
                 this.columns = in.nextInt();
                 this.matrix = new double[rows][columns];
-    
+
                 for (int i = 0; i < rows; i++) {
                     for (int j = 0; j < columns; j++) {
                         this.matrix[i][j] = scnr.nextDouble();
@@ -52,51 +52,48 @@ public class Matrix {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-           
-
 
         } else {
             System.out.println("Pilihan yang anda masukkan salah");
         }
-        
 
     }
 
-
-    void CreateMatrix2() { // Untuk kasus determinan dan matriks balikan, yang input matriks hanya n, dan ukuran matriks harus nxn
+    void CreateMatrix2() { // Untuk kasus determinan dan matriks balikan, yang input matriks hanya n, dan
+                           // ukuran matriks harus nxn
         /* Membaca dan membentuk matrix dari class Matrix */
         /* I.S. = - */
         /* F.S. = Terbentuk Matrix sesuai dengan inputan pengguna */
         Scanner in = new Scanner(System.in);
         System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file): ");
         int choice = in.nextInt();
-        if(choice == 1){
+        if (choice == 1) {
             System.out.print("Masukkan ukuran matriks (n x n): ");
             int n = in.nextInt();
             this.rows = n;
             this.columns = n;
-    
+
             System.out.println("Masukkan elemen matriks: ");
             this.matrix = new double[n][n];
-    
+
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     this.matrix[i][j] = in.nextFloat();
                 }
             }
-        } else if (choice == 2){
+        } else if (choice == 2) {
             try {
                 System.out.print("Silahkan masukkan nama file: ");
                 Scanner scnr = new Scanner(System.in);
                 File text = new File(scnr.nextLine());
                 scnr = new Scanner(text);
-                
+
                 System.out.print("Masukkan ukuran matriks (n x n): ");
                 int n = in.nextInt();
                 this.rows = n;
                 this.columns = n;
                 this.matrix = new double[n][n];
-    
+
                 for (int i = 0; i < rows; i++) {
                     for (int j = 0; j < columns; j++) {
                         this.matrix[i][j] = scnr.nextDouble();
@@ -106,13 +103,10 @@ public class Matrix {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-           
-
 
         } else {
             System.out.println("Pilihan yang anda masukkan salah");
         }
-        
 
     }
 
@@ -173,7 +167,7 @@ public class Matrix {
         int i, j;
         double temp;
 
-        if (this.rows == this.columns){
+        if (this.rows == this.columns) {
             for (i = 0; i < this.rows; i++) {
                 for (j = i; j < this.rows; j++) {
                     temp = this.matrix[i][j];
@@ -181,10 +175,10 @@ public class Matrix {
                     this.matrix[j][i] = temp;
                 }
             }
-        }else{
+        } else {
             Matrix mOut = new Matrix(this.columns, this.rows);
-            for (i = 0; i<this.columns; i++){
-                for (j=0; j<this.rows; j++){
+            for (i = 0; i < this.columns; i++) {
+                for (j = 0; j < this.rows; j++) {
                     mOut.matrix[i][j] = this.matrix[j][i];
                 }
             }
@@ -396,43 +390,44 @@ public class Matrix {
         String p = "y = ";
         for (int i = 0; i < this.rows; i++) {
             y = y + this.matrix[i][0] * (Math.pow(x, i));
-            if (i==0){
-                p+=this.matrix[i][0];
-            }else if(i==1){
-                p+=" + "+this.matrix[i][0]+"x";
-            }else{
-                p+=" + "+this.matrix[i][0]+"x**"+i; 
+            if (i == 0) {
+                p += this.matrix[i][0];
+            } else if (i == 1) {
+                p += " + " + this.matrix[i][0] + "x";
+            } else {
+                p += " + " + this.matrix[i][0] + "x**" + i;
             }
         }
         System.out.println("Persamaan yang diperoleh: ");
         System.out.println(p);
-        System.out.print("Untuk x dengan nilai "+x+", hasil yang diperoleh: ");
+        System.out.print("Untuk x dengan nilai " + x + ", hasil yang diperoleh: ");
         System.out.println(y);
     }
 
-    void multipleLinearReg(double humidity, double temp, double p){
-        Matrix eq = new Matrix(this.rows, this.rows+1);
-        for (int i=0; i<eq.rows;i++){
-            for (int j=0; j<eq.columns;j++){
-                // eq.matrix[i][j] = 
+    void multipleLinearReg(double humidity, double temp, double p) {
+        Matrix eq = new Matrix(this.rows, this.rows + 1);
+        for (int i = 0; i < eq.rows; i++) {
+            for (int j = 0; j < eq.columns; j++) {
+                // eq.matrix[i][j] =
             }
         }
-        double[] data = {1,humidity, temp, p};
+        double[] data = { 1, humidity, temp, p };
         String pers = "y = ";
         double y = 0;
         eq.SPLbalikan();
         for (int i = 0; i < eq.rows; i++) {
             y = y + eq.matrix[i][0] * (data[i]);
-            if (i==0){
-                pers+=eq.matrix[i][0];
-            }else if(i==1){
-                pers+=eq.matrix[i][0]+"+ x";
-            }else{
-                pers+=eq.matrix[i][0]+"+ x"+i;
+            if (i == 0) {
+                pers += eq.matrix[i][0];
+            } else if (i == 1) {
+                pers += eq.matrix[i][0] + "+ x";
+            } else {
+                pers += eq.matrix[i][0] + "+ x" + i;
             }
         }
         System.out.println("Persamaan yang diperoleh: ");
         System.out.println(pers);
-        System.out.println("Untuk data humidity "+humidity+" temperature "+temp+" dan pressure "+p+", estimasi NO yang diperoleh adalah sebanyak "+y);
+        System.out.println("Untuk data humidity " + humidity + " temperature " + temp + " dan pressure " + p
+                + ", estimasi NO yang diperoleh adalah sebanyak " + y);
     }
 }
