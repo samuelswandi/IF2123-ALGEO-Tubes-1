@@ -1,5 +1,8 @@
 import java.io.*;
 import java.util.Scanner;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 public class Matrix {
     int rows, columns;
@@ -405,17 +408,35 @@ public class Matrix {
     }
 
     void multipleLinearReg(double humidity, double temp, double p) {
-        Matrix eq = new Matrix(this.rows, this.rows + 1);
-        for (int i = 0; i < eq.rows; i++) {
-            for (int j = 0; j < eq.columns; j++) {
-                // eq.matrix[i][j] =
+        Matrix eq = new Matrix(this.columns, this.columns+1);
+        for (int i = 0; i <eq.rows; i++) {
+            for (int j = 0; j <eq.columns; j++) {
+                double count = 0;
+                for (int k=0; k<this.rows;k++){
+                    if (i==0&j==0){
+                        count = this.rows;
+                        break;
+                    }else if (i==0 && j==eq.columns-1){
+                        count+=this.matrix[k][this.columns-1];
+                    }else if (i!=0 && j==eq.columns-1){
+                        count = count + this.matrix[k][i-1]*this.matrix[k][this.columns-1];
+                    }else if (i==0 && (j!=eq.columns-1)){
+                        count+=this.matrix[k][j-1];
+                    } else if (j==0 && i!=0){
+                        count+=this.matrix[k][i-1];
+                    }else{
+                        count+=this.matrix[k][i-1]*this.matrix[k][j-1];
+                    }
+                }
+                // BigDecimal elmt = new BigDecimal(count).setScale(2, RoundingMode.HALF_UP);
+                // eq.matrix[i][j] = elmt.doubleValue();
             }
         }
-
+        // eq.DisplayMatrix();
         eq.SPLbalikan();
 
         for (int i=0; i<eq.rows;i++){
-            for (int j=0;j<eq.rows;j++){
+            for (int j=0;j<eq.columns;j++){
                 if (i==eq.rows-2){
                     System.out.print(eq.matrix[i][j]+"b"+j);
                 }else if(i==eq.rows-1){
@@ -434,10 +455,9 @@ public class Matrix {
             y = y + eq.matrix[i][0] * (data[i]);
             if (i == 0) {
                 pers += eq.matrix[i][0];
-            } else if (i == 1) {
-                pers += eq.matrix[i][0] + "+ x";
-            } else {
-                pers += eq.matrix[i][0] + "+ x" + i;
+            } 
+            else {
+                pers += " + x"+i+"*"+ eq.matrix[i][0];
             }
         }
         

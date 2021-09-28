@@ -119,6 +119,7 @@ public class Main {
           choice = in.nextInt();
           break;
         default:
+          matrix.multipleLinearReg(1, 1, 1);
           System.out.print("Angka yang anda masukkan salah, silahkan masukkan angka baru: ");
           choice = in.nextInt();
       }
