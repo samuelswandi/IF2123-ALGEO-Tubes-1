@@ -308,10 +308,22 @@ public class Matrix {
         this.SPLbalikan();
         int i;
         double y = 0;
+        String p = "y = ";
         for (i = 0; i < this.rows; i++) {
             y = y + this.matrix[i][0] * (Math.pow(x, i));
+            if (i==0){
+                p+=this.matrix[i][0];
+            }else if(i==1){
+                p+=" + "+this.matrix[i][0]+"x";
+            }else{
+                p+=" + "+this.matrix[i][0]+"x**"+i; 
+            }
         }
-        System.out.print("hasil: ");
+        System.out.println("Persamaan yang diperoleh: ");
+        System.out.println(p);
+        System.out.print("Untuk x dengan nilai "+x+", hasil yang diperoleh: ");
         System.out.println(y);
     }
+
+//     void multipleLinearReg()
 }
