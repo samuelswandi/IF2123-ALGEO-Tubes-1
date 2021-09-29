@@ -127,36 +127,6 @@ public class Matrix {
     }
 
     /***** KELOMPOK OPERASI PRIMITIF TERHADAP MATRIX *****/
-    double cofactorDeterminan() {
-        /* Prekondisi: Matrix berjenis matriks persegi (berukuran N x N) */
-        /* Menghitung nilai determinan Matrix */
-        if (this.rows == 1) {
-            return this.matrix[0][0];
-        } else if (this.rows == 2) {
-            return this.matrix[0][0] * this.matrix[1][1] - this.matrix[1][0] * this.matrix[0][1];
-        } else {
-            int i, j, k;
-            double det = 0;
-            for (i = 0; i < this.rows; i++) {
-                Matrix newM = new Matrix(this.rows - 1, this.columns - 1);
-                for (j = 1; j < this.columns; j++) {
-                    int row = j - 1, col = 0;
-                    for (k = 0; k < this.rows; k++) {
-                        if (k != i) {
-                            newM.matrix[row][col] = this.matrix[j][k];
-                            col++;
-                        }
-                    }
-                }
-                if (i % 2 == 0) {
-                    det += this.matrix[0][i] * newM.cofactorDeterminan();
-                } else {
-                    det += (-1) * this.matrix[0][i] * newM.cofactorDeterminan();
-                }
-            }
-            return det;
-        }
-    }
 
     void Transpose() {
         /* Menghasilkan matrix transpose */
@@ -320,9 +290,50 @@ public class Matrix {
         this.DisplayMatrix();
     }
 
+    /***** KELOMPOK ALGORITMA DETERMINAN *****/
+    double cofactorDeterminan() {
+        /* Prekondisi: Matrix berjenis matriks persegi (berukuran N x N) */
+        /* Menghitung nilai determinan Matrix */
+        if (this.rows == 1) {
+            return this.matrix[0][0];
+        } else if (this.rows == 2) {
+            return this.matrix[0][0] * this.matrix[1][1] - this.matrix[1][0] * this.matrix[0][1];
+        } else {
+            int i, j, k;
+            double det = 0;
+            for (i = 0; i < this.rows; i++) {
+                Matrix newM = new Matrix(this.rows - 1, this.columns - 1);
+                for (j = 1; j < this.columns; j++) {
+                    int row = j - 1, col = 0;
+                    for (k = 0; k < this.rows; k++) {
+                        if (k != i) {
+                            newM.matrix[row][col] = this.matrix[j][k];
+                            col++;
+                        }
+                    }
+                }
+                if (i % 2 == 0) {
+                    det += this.matrix[0][i] * newM.cofactorDeterminan();
+                } else {
+                    det += (-1) * this.matrix[0][i] * newM.cofactorDeterminan();
+                }
+            }
+            return det;
+        }
+    }
+
+    double gaussDeterminan(){
+        /* Prekondisi: Matrix berjenis matriks persegi (berukuran N x N) */
+        /* Menghitung nilai determinan Matrix */
+        double[] temp = this.GaussTransform();
+        return this.diagonalProduct() * Math.pow(-1,temp[0]) / temp[1];
+    }
+
     /***** KELOMPOK PENYELESAIAN INVERSE MATRIX *****/
 
     void addIdentity(){
+        /* I.S. = Matrix Square terdefinisi */
+        /* F.S. = Ditambahkan matrix identitas berukuran (n x n) --> untuk keperluan Inverse metode Gauss-Jordan */
         Matrix inverseMatrix = new Matrix(this.rows, this.columns * 2);
         for (int inverseRow = 0 ; inverseRow < inverseMatrix.rows ; inverseRow++){
           for (int inverseCol = 0 ; inverseCol < inverseMatrix.columns ; inverseCol++){
@@ -343,6 +354,21 @@ public class Matrix {
         //converting original matrix
         this.columns = this.columns * 2;
         this.matrix = inverseMatrix.matrix;
+    }
+
+    void delIdentity(){
+        /* I.S. = Matrix Terdefinisi ukuran (n x 2n) hasil bentukan metoda Gauss-Jordan */
+        /* F.S. = Terbentuk matrix (n x n) setelah matrix identitas sebelah kiri terhapus */
+        Matrix deletedMatrix = new Matrix(this.rows , this.columns / 2);
+        for(int i = 0 ; i < this.rows ; i++){
+            for (int j = this.columns / 2 ; j < this.columns ; j++){
+                deletedMatrix.matrix[i][j - deletedMatrix.columns] = this.matrix[i][j];
+            }
+        }
+        
+        //converting original matrix
+        this.columns = this.columns / 2;
+        this.matrix = deletedMatrix.matrix;
     }
 
 
@@ -389,7 +415,29 @@ public class Matrix {
         }
     }
 
+
+    void gaussJordanInverse(){
+        /* Menghasilkan inverse / balikan dari suatu matriks */
+        /* I.S. = Matrix terdefinisi bebas */
+        /*
+         * F.S. = Matriks yang bersangkutan akan berubah menjadi matriks balikan
+         * terdefinisi , sebaliknya apabila tidak memiliki balikan akan tercetak pesan
+         * peringatan pada layar.
+         */
+        this.addIdentity();
+        this.GaussJordanTransform();
+        this.delIdentity();
+    }
+
+    /***** KELOMPOK ALGORITMA INTI GAUSS , GAUSS JORDAN *****/
     int argmax(int h, int k){
+        /* Menghasilkan Index dari nilai absolute terbesar dari kolom k suatu 
+        matriks mulai dari kolom h hingga matrix.rows - 1 */
+
+        /* I.S. = Matrix terdefinisi bebas */
+        /*
+         * F.S. = Dikembalikan Index dengan nilai absolute terbesar.
+         */
         int i_max = h;
         for (int i = h; i < this.rows; i++) {
             if (Math.abs(this.matrix[i][k]) > Math.abs(this.matrix[i_max][k])) {
@@ -451,39 +499,33 @@ public class Matrix {
                 for(int column = j ; column < this.columns ; column++){
                     this.matrix[row][column] /= temp;
                 }
-                // if (j < this.columns){
-                //     constraint[1] *= temp;
-                // }
             }
         }
     }
-
-
 
     void GaussJordanTransform(){
         /* I.S. = Matrix Terdefinisi */
         /* F.S. = Terbentuk Matrix eselon baris */
         double[] temp = this.GaussTransform();
-        this.DisplayMatrix();
         this.transformOne();
-        this.DisplayMatrix();
         for(int row = 0 ; row < this.rows ; row++){
             int j = 0;
             while(j < this.columns && this.matrix[row][j] == 0){
                 j++;
             }
             if ( j < this.columns){
-                double temps = this.matrix[row][j];
                 for(int tempRow = row-1 ; tempRow >= 0 ; tempRow--){
+                    double constant = this.matrix[tempRow][j];
                     for(int tempCol = j ; tempCol < this.columns ; tempCol++){
-                        this.matrix[tempRow][tempCol] -= this.matrix[row][tempCol]*this.matrix[tempRow][tempCol];
-                        this.DisplayMatrix();
-                        System.out.println();
+                        this.matrix[tempRow][tempCol] -= constant*this.matrix[row][tempCol];
                     }
                 }
             }
         }
     }
+
+
+    /***** KELOMPOK ALGORITMA TURUNAN *****/
 
     void interpolation(double x) {
         this.SPLbalikan();

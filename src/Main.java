@@ -75,17 +75,12 @@ public class Main {
 
           switch (case2Choice) {
             case 1:
-              double[] temp = matrix.GaussTransform();
-              det = matrix.diagonalProduct() * Math.pow(-1,temp[0]) / temp[1];
+              det = matrix.gaussDeterminan();
               break;
             case 2:
               det = matrix.cofactorDeterminan();
               break;
             default:
-              // matrix.addIdentity();
-              // System.out.println(matrix.rows);
-              // System.out.println(matrix.columns);
-              // matrix.DisplayMatrix();
               break;
           }
 
@@ -110,13 +105,13 @@ public class Main {
           if (matrix.cofactorDeterminan() != 0){
             switch (case3Choice) {
               case 1:
-                matrix.addIdentity();
-                matrix.DisplayMatrix();
-                matrix.GaussJordanTransform();
+                matrix.gaussJordanInverse();
                 break;
+
               case 2:
                 matrix.cofactorInverse();
                 break;
+
               default:
                 break;
             }
@@ -176,4 +171,3 @@ public class Main {
     in.close();
   }
 }
-// Salam, Ada Nyamuk :D
