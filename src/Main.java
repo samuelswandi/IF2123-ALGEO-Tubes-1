@@ -157,7 +157,6 @@ public class Main {
           System.out.println("Matriks yang telah dibuat: ");
           matrix.DisplayMatrix();
 
-          matrix.multipleLinearReg(0.5, 76, 29.30);
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;

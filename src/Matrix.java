@@ -547,30 +547,4 @@ public class Matrix {
         System.out.println(y);
     }
 
-    void multipleLinearReg(double humidity, double temp, double p) {
-        Matrix eq = new Matrix(this.rows, this.rows + 1);
-        for (int i = 0; i < eq.rows; i++) {
-            for (int j = 0; j < eq.columns; j++) {
-                // eq.matrix[i][j] =
-            }
-        }
-        double[] data = { 1, humidity, temp, p };
-        String pers = "y = ";
-        double y = 0;
-        eq.SPLbalikan();
-        for (int i = 0; i < eq.rows; i++) {
-            y = y + eq.matrix[i][0] * (data[i]);
-            if (i == 0) {
-                pers += eq.matrix[i][0];
-            } else if (i == 1) {
-                pers += eq.matrix[i][0] + "+ x";
-            } else {
-                pers += eq.matrix[i][0] + "+ x" + i;
-            }
-        }
-        System.out.println("Persamaan yang diperoleh: ");
-        System.out.println(pers);
-        System.out.println("Untuk data humidity " + humidity + " temperature " + temp + " dan pressure " + p
-                + ", estimasi NO yang diperoleh adalah sebanyak " + y);
-    }
 }
