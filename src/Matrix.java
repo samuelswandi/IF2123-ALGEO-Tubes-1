@@ -430,6 +430,7 @@ public class Matrix {
                 }
                 // BigDecimal elmt = new BigDecimal(count).setScale(2, RoundingMode.HALF_UP);
                 // eq.matrix[i][j] = elmt.doubleValue();
+                eq.matrix[i][j] = count;
             }
         }
         // eq.DisplayMatrix();
