@@ -269,12 +269,16 @@ public class Matrix {
                 }
             }
         }
-
-        System.out.println("Hasil SPL :");
-        mOut.CofactorInverse();
-        this.matrix = mOut.Multiply(temp.matrix);
-        this.columns = 1;
-        this.DisplayMatrix2();
+        if(mOut.CofactorDeterminan() == 0) {
+            System.out.println("Matriks tidak memiliki invers!");
+        } else {
+            System.out.println("Hasil SPL :");
+            mOut.CofactorInverse();
+            this.matrix = mOut.Multiply(temp.matrix);
+            this.columns = 1;
+            this.DisplayMatrix2();
+        }
+        
     }
 
     void SPLCramer() {
@@ -285,26 +289,31 @@ public class Matrix {
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
         double det = this.GaussDeterminan();
-        Matrix result = new Matrix(this.rows, 1);
-        for (int i = 0; i < this.rows; i++) {
-            // Temporary Matrix for Value Assigning
-            Matrix temp = new Matrix(this.rows, this.columns - 1);
-            for (int tempRow = 0; tempRow < this.rows; tempRow++) {
-                for (int tempCol = 0; tempCol < this.columns - 1; tempCol++) {
-                    if (tempCol == i) {
-                        temp.matrix[tempRow][tempCol] = this.matrix[tempRow][this.columns - 1];
-                    } else {
-                        temp.matrix[tempRow][tempCol] = this.matrix[tempRow][tempCol];
+        if(det == 0) {
+            System.out.println("Determinan matriks 0!");
+        } else {
+            Matrix result = new Matrix(this.rows, 1);
+            for (int i = 0; i < this.rows; i++) {
+                // Temporary Matrix for Value Assigning
+                Matrix temp = new Matrix(this.rows, this.columns - 1);
+                for (int tempRow = 0; tempRow < this.rows; tempRow++) {
+                    for (int tempCol = 0; tempCol < this.columns - 1; tempCol++) {
+                        if (tempCol == i) {
+                            temp.matrix[tempRow][tempCol] = this.matrix[tempRow][this.columns - 1];
+                        } else {
+                            temp.matrix[tempRow][tempCol] = this.matrix[tempRow][tempCol];
+                        }
                     }
                 }
+                // Assign Temporary Matrix Determinant for Variable's Resolver
+                result.matrix[i][0] = temp.GaussDeterminan() / det;
             }
-            // Assign Temporary Matrix Determinant for Variable's Resolver
-            result.matrix[i][0] = temp.GaussDeterminan() / det;
+            System.out.println("Hasil SPL :");
+            this.matrix = result.matrix;
+            this.columns = 1;
+            this.DisplayMatrix2();
         }
-        System.out.println("Hasil SPL :");
-        this.matrix = result.matrix;
-        this.columns = 1;
-        this.DisplayMatrix2();
+       
     }
 
     void SPLGauss(){
