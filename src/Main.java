@@ -35,7 +35,7 @@ public class Main {
 
           switch (case1Choice) {
             case 1:
-              matrix.GaussTransform();
+              double[] temp = matrix.GaussTransform();
               matrix.DisplayMatrix();
               break;
             case 2:
@@ -63,9 +63,33 @@ public class Main {
           System.out.println("Matriks yang telah dibuat: ");
           matrix.DisplayMatrix();
 
-          System.out.print("Determinan dari matriks adalah: ");
+          System.out.println("Penyelesaian determinan matriks menggunakan : ");
+          System.out.println("1. Metode eliminasi Gauss");
+          System.out.println("2. Metode kofaktor ");
+          
+          System.out.print("Masukkan angka untuk memilih metode: ");
+          int case2Choice = in.nextInt();
+          
+          //Initialize Value for Determinant
+          double det = 0.0;
 
-          double det = matrix.Determinan();
+          switch (case2Choice) {
+            case 1:
+              double[] temp = matrix.GaussTransform();
+              det = matrix.diagonalProduct() * Math.pow(-1,temp[0]) / temp[1];
+              break;
+            case 2:
+              det = matrix.cofactorDeterminan();
+              break;
+            default:
+              // matrix.addIdentity();
+              // System.out.println(matrix.rows);
+              // System.out.println(matrix.columns);
+              // matrix.DisplayMatrix();
+              break;
+          }
+
+          System.out.print("Determinan dari matriks adalah: ");
           System.out.print(det);
 
           System.out.print("\nMasukkan angka untuk memilih menu lain: ");
@@ -76,9 +100,33 @@ public class Main {
           System.out.println("Matriks yang telah dibuat: ");
           matrix.DisplayMatrix();
 
-          System.out.println("Matriks Balikan : ");
-          matrix.Inverse();
-          matrix.DisplayMatrix();
+          System.out.println("Penyelesaian balikan matriks menggunakan : ");
+          System.out.println("1. Metode eliminasi Gauss");
+          System.out.println("2. Metode kofaktor ");
+          
+          System.out.print("Masukkan angka untuk memilih metode: ");
+          int case3Choice = in.nextInt();
+          
+          if (matrix.cofactorDeterminan() != 0){
+            switch (case3Choice) {
+              case 1:
+                matrix.addIdentity();
+                matrix.DisplayMatrix();
+                matrix.GaussJordanTransform();
+                break;
+              case 2:
+                matrix.cofactorInverse();
+                break;
+              default:
+                break;
+            }
+
+            System.out.println("Matriks Balikan : ");
+            matrix.DisplayMatrix();
+          }
+          else{
+            System.out.println("Matriks tidak memiliki balikan.");
+          }
 
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
@@ -119,6 +167,7 @@ public class Main {
           choice = in.nextInt();
           break;
         default:
+
           System.out.print("Angka yang anda masukkan salah, silahkan masukkan angka baru: ");
           choice = in.nextInt();
       }

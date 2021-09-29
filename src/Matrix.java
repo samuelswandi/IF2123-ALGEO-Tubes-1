@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
+import java.lang.Math;
 
 public class Matrix {
     int rows, columns;
@@ -126,7 +127,7 @@ public class Matrix {
     }
 
     /***** KELOMPOK OPERASI PRIMITIF TERHADAP MATRIX *****/
-    double Determinan() {
+    double cofactorDeterminan() {
         /* Prekondisi: Matrix berjenis matriks persegi (berukuran N x N) */
         /* Menghitung nilai determinan Matrix */
         if (this.rows == 1) {
@@ -148,9 +149,9 @@ public class Matrix {
                     }
                 }
                 if (i % 2 == 0) {
-                    det += this.matrix[0][i] * newM.Determinan();
+                    det += this.matrix[0][i] * newM.cofactorDeterminan();
                 } else {
-                    det += (-1) * this.matrix[0][i] * newM.Determinan();
+                    det += (-1) * this.matrix[0][i] * newM.cofactorDeterminan();
                 }
             }
             return det;
@@ -246,6 +247,20 @@ public class Matrix {
         }
     }
 
+    double diagonalProduct() {
+        /* Mengalikan setiap element diagonal matriks */
+        /* I.S. = Matrix SQUARE terdefinisi */
+        /*
+         * F.S. = Mengeluarkan hasil perkalian setiap element diagonal utama Matrix
+         * 
+         */
+        double result = 1.0;
+        for (int i = 0 ; i < this.rows ; i++){
+            result *= this.matrix[i][i];
+        }
+        return result;
+    }
+
     /***** KELOMPOK PENYELESAIAN SPL MATRIX *****/
     void SPLbalikan() {
         /* Mencari Solusi SPL dengan metode inverse */
@@ -269,7 +284,7 @@ public class Matrix {
         }
 
         System.out.println("Hasil SPL :");
-        mOut.Inverse();
+        mOut.cofactorInverse();
         this.matrix = mOut.Multiply(temp.matrix);
         this.columns = 1;
         this.DisplayMatrix();
@@ -282,7 +297,7 @@ public class Matrix {
          * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
-        double det = this.Determinan();
+        double det = this.cofactorDeterminan();
         Matrix result = new Matrix(this.rows, 1);
         for (int i = 0; i < this.rows; i++) {
             // Temporary Matrix for Value Assigning
@@ -297,7 +312,7 @@ public class Matrix {
                 }
             }
             // Assign Temporary Matrix Determinant for Variable's Resolver
-            result.matrix[i][0] = temp.Determinan() / det;
+            result.matrix[i][0] = temp.cofactorDeterminan() / det;
         }
         System.out.println("Hasil SPL :");
         this.matrix = result.matrix;
@@ -306,7 +321,32 @@ public class Matrix {
     }
 
     /***** KELOMPOK PENYELESAIAN INVERSE MATRIX *****/
-    void Inverse() {
+
+    void addIdentity(){
+        Matrix inverseMatrix = new Matrix(this.rows, this.columns * 2);
+        for (int inverseRow = 0 ; inverseRow < inverseMatrix.rows ; inverseRow++){
+          for (int inverseCol = 0 ; inverseCol < inverseMatrix.columns ; inverseCol++){
+            if (inverseCol < this.columns){
+              inverseMatrix.matrix[inverseRow][inverseCol] = this.matrix[inverseRow][inverseCol];
+            }
+            else{
+              if (inverseCol == inverseRow + this.columns){
+                inverseMatrix.matrix[inverseRow][inverseCol] = 1;
+              }
+              else{
+                inverseMatrix.matrix[inverseRow][inverseCol] = 0;
+              }
+            }
+          }
+        }
+        
+        //converting original matrix
+        this.columns = this.columns * 2;
+        this.matrix = inverseMatrix.matrix;
+    }
+
+
+    void cofactorInverse() {
         /* Menghasilkan inverse / balikan dari suatu matriks */
         /* I.S. = Matrix terdefinisi bebas */
         /*
@@ -315,7 +355,7 @@ public class Matrix {
          * peringatan pada layar.
          */
         int i, j, a, b;
-        double det = this.Determinan();
+        double det = this.cofactorDeterminan();
         Matrix cofactor = new Matrix(this.rows, this.columns);
         for (i = 0; i < this.rows; i++) {
             for (j = 0; j < this.columns; j++) {
@@ -334,13 +374,13 @@ public class Matrix {
                     }
                 }
                 if ((i + j) % 2 == 0) {
-                    cofactor.matrix[i][j] = tempMatrix.Determinan();
+                    cofactor.matrix[i][j] = tempMatrix.cofactorDeterminan();
                 } else {
-                    cofactor.matrix[i][j] = (-1) * tempMatrix.Determinan();
+                    cofactor.matrix[i][j] = (-1) * tempMatrix.cofactorDeterminan();
                 }
             }
         }
-        if (this.Determinan() == 0) {
+        if (this.cofactorDeterminan() == 0) {
             System.out.println("Matriks tidak memiliki invers!");
         } else {
             cofactor.Transpose();
@@ -349,36 +389,97 @@ public class Matrix {
         }
     }
 
-    void GaussTransform() {
+    int argmax(int h, int k){
+        int i_max = h;
+        for (int i = h; i < this.rows; i++) {
+            if (Math.abs(this.matrix[i][k]) > Math.abs(this.matrix[i_max][k])) {
+               i_max = i;
+            }
+        }
+        return i_max;
+    }
+
+    void swapRow(int i, int j){
+        for(int col = 0 ; col < this.columns ; col++){
+            double temp;
+            temp = this.matrix[i][col];
+            this.matrix[i][col] = this.matrix[j][col];
+            this.matrix[j][col] = temp;
+        } 
+    }
+
+    double[] GaussTransform(){
         /* I.S. = Matrix Terdefinisi */
         /* F.S. = Terbentuk Matrix eselon baris */
-        for (int i = 0; i < this.rows; i++) {
-            for (int indexRow = i; indexRow < this.rows; indexRow++) {
-                double divisor = 0;
-                for (int indexCol = i; indexCol < this.columns; indexCol++) {
-                    if (indexRow == i) {
-                        if (indexRow == indexCol) {
-                            divisor = this.matrix[indexRow][indexCol];
-                            this.matrix[indexRow][indexCol] /= divisor;
-                        } else {
-                            this.matrix[indexRow][indexCol] /= divisor;
-                        }
-                    } else {
-                        this.matrix[indexRow][indexCol] -= this.matrix[i][indexCol] * this.matrix[indexRow][indexCol];
+        double[] constraint = {0,1}; 
+        int h = 0 , k = 0;
+        while (h < this.rows && k < this.columns){
+            //Cari k-th pivot
+            int i_max = this.argmax(h, k);
+            if (this.matrix[i_max][k] == 0){
+                k++;
+            }
+            else{
+                this.swapRow(h, i_max);
+                constraint[0]++;
+
+                for(int i = h+1 ; i < this.rows ; i++){
+                    double f = this.matrix[i][k] / this.matrix[h][k];
+                    this.matrix[i][k] = 0;
+                    
+                    for(int j = k+1 ; j < this.columns ; j++){
+                        this.matrix[i][j] -= this.matrix[h][j] * f;
                     }
                 }
+                h++;
+                k++;
+            }
+        }
+
+        return constraint;
+    }
+
+    void transformOne(){
+        //Membentuk Form matrix echelon dengan 1 utama
+        for(int row = 0 ; row < this.rows ; row++){
+            int j = 0;
+            while(j < this.columns && this.matrix[row][j] == 0){
+                j++;
+            }
+            if ( j < this.columns){
+                double temp = this.matrix[row][j];
+                for(int column = j ; column < this.columns ; column++){
+                    this.matrix[row][column] /= temp;
+                }
+                // if (j < this.columns){
+                //     constraint[1] *= temp;
+                // }
             }
         }
     }
 
-    void GaussJordanTransform() {
+
+
+    void GaussJordanTransform(){
         /* I.S. = Matrix Terdefinisi */
         /* F.S. = Terbentuk Matrix eselon baris */
-        this.GaussTransform();
-        for (int i = 0; i < this.rows; i++) {
-            for (int indexRow = 0; indexRow < i; indexRow++) {
-                for (int indexCol = 0; indexCol < this.columns; indexCol++) {
-                    this.matrix[indexRow][indexCol] -= this.matrix[i][indexCol] * this.matrix[indexRow][indexCol];
+        double[] temp = this.GaussTransform();
+        this.DisplayMatrix();
+        this.transformOne();
+        this.DisplayMatrix();
+        for(int row = 0 ; row < this.rows ; row++){
+            int j = 0;
+            while(j < this.columns && this.matrix[row][j] == 0){
+                j++;
+            }
+            if ( j < this.columns){
+                double temps = this.matrix[row][j];
+                for(int tempRow = row-1 ; tempRow >= 0 ; tempRow--){
+                    for(int tempCol = j ; tempCol < this.columns ; tempCol++){
+                        this.matrix[tempRow][tempCol] -= this.matrix[row][tempCol]*this.matrix[tempRow][tempCol];
+                        this.DisplayMatrix();
+                        System.out.println();
+                    }
                 }
             }
         }
