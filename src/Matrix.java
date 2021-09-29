@@ -249,12 +249,6 @@ public class Matrix {
     }
 
     /***** KELOMPOK PENYELESAIAN SPL MATRIX *****/
-    void SPL(){ 
-        double[] m = this.GaussTransform();
-        double a = this.matrix[this.rows-1][this.columns-2];
-        double b = this.matrix[this.rows-1][this.columns-1];
-    }
-
     void SPLInverse() {
         /* Mencari Solusi SPL dengan metode inverse */
         /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
@@ -598,12 +592,14 @@ public class Matrix {
 
     /***** KELOMPOK ALGORITMA TURUNAN *****/
 
-    void Interpolation(double x) {
+    void Interpolation() {
+        Scanner in = new Scanner(System.in);
         this.SPLInverse();
         double y = 0;
         String p = "y = ";
+        System.out.println("Persamaan yang diperoleh: ");
+        
         for (int i = 0; i < this.rows; i++) {
-            y = y + this.matrix[i][0] * (Math.pow(x, i));
             if (i == 0) {
                 p += this.matrix[i][0];
             } else if (i == 1) {
@@ -612,13 +608,19 @@ public class Matrix {
                 p += " + " + this.matrix[i][0] + "x**" + i;
             }
         }
-        System.out.println("Persamaan yang diperoleh: ");
+        System.out.print("Masukkan nilai x: ");
+        double x = in.nextFloat();
+        for (int i = 0; i < this.rows; i++) {
+            y = y + this.matrix[i][0] * (Math.pow(x, i));
+        }
+
         System.out.println(p);
         System.out.print("Untuk x dengan nilai " + x + ", hasil yang diperoleh: ");
         System.out.println(y);
     }
 
-    void MultipleLinearReg(double humidity, double temp, double p) {
+    void MultipleLinearReg() {
+        Scanner in = new Scanner(System.in);
         Matrix eq = new Matrix(this.columns, this.columns+1);
         for (int i = 0; i <eq.rows; i++) {
             for (int j = 0; j <eq.columns; j++) {
@@ -659,7 +661,12 @@ public class Matrix {
             }
             System.out.println("");
         }
-
+        System.out.print("Masukkan data Humidity: ");
+        double humidity= in.nextFloat(); 
+        System.out.print("Masukkan data Temperature: ");
+        double temp= in.nextFloat(); 
+        System.out.print("Masukkan data Pressure: ");
+        double p= in.nextFloat();
         double[] data = { 1, humidity, temp, p };
         String pers = "y = ";
         double y = 0;
