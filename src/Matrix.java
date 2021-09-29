@@ -232,6 +232,11 @@ public class Matrix {
     }
 
     /***** KELOMPOK PENYELESAIAN SPL MATRIX *****/
+    void SPL(){ 
+        double[] m = this.GaussTransform();
+        double a = this.matrix[this.rows-1][this.columns-2];
+        double b = this.matrix[this.rows-1][this.columns-1];
+    }
     void SPLbalikan() {
         /* Mencari Solusi SPL dengan metode inverse */
         /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
