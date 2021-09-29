@@ -19,11 +19,12 @@ public class Main {
     Matrix matrix = new Matrix(0, 0);
 
     while (choice != 6) {
-      matrix.CreateMatrix();
-      System.out.println("Matriks yang telah dibuat: ");
-      matrix.DisplayMatrix();
       switch (choice) {
         case 1:
+          matrix.CreateMatrix();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
+
           System.out.println("Penyelesaian matriks menggunakan : ");
           System.out.println("1. Metode eliminasi Gauss");
           System.out.println("2. Metode eliminasi Gauss-Jordan ");
@@ -34,7 +35,7 @@ public class Main {
 
           switch (case1Choice) {
             case 1:
-              matrix.GaussTransform();
+              double[] temp = matrix.GaussTransform();
               matrix.DisplayMatrix();
               break;
             case 2:
@@ -58,64 +59,104 @@ public class Main {
           choice = in.nextInt();
           break;
         case 2:
-          while (matrix.rows != matrix.columns) {
-            System.out.print("Matrix bukan merupakan matriks persegi, silahkan masukkan matriks kembali!\n");
-            matrix.CreateMatrix();
-            System.out.println("Matriks yang telah dibuat: ");
-            matrix.DisplayMatrix();
-          }
-          System.out.print("Determinan dari matriks adalah :");
+          matrix.CreateMatrix2();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
 
-          double det = matrix.Determinan();
+          System.out.println("Penyelesaian determinan matriks menggunakan : ");
+          System.out.println("1. Metode eliminasi Gauss");
+          System.out.println("2. Metode kofaktor ");
+          
+          System.out.print("Masukkan angka untuk memilih metode: ");
+          int case2Choice = in.nextInt();
+          
+          //Initialize Value for Determinant
+          double det = 0.0;
+
+          switch (case2Choice) {
+            case 1:
+              det = matrix.gaussDeterminan();
+              break;
+            case 2:
+              det = matrix.cofactorDeterminan();
+              break;
+            default:
+              break;
+          }
+
+          System.out.print("Determinan dari matriks adalah: ");
           System.out.print(det);
 
           System.out.print("\nMasukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
         case 3:
-          while (matrix.Determinan() == 0) {
-            System.out.print("Determinan dari matriks adalah 0, silahkan masukkan matriks kembali!\n");
-            matrix.CreateMatrix();
-            System.out.println("Matriks yang telah dibuat: ");
+          matrix.CreateMatrix2();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
+
+          System.out.println("Penyelesaian balikan matriks menggunakan : ");
+          System.out.println("1. Metode eliminasi Gauss");
+          System.out.println("2. Metode kofaktor ");
+          
+          System.out.print("Masukkan angka untuk memilih metode: ");
+          int case3Choice = in.nextInt();
+          
+          if (matrix.cofactorDeterminan() != 0){
+            switch (case3Choice) {
+              case 1:
+                matrix.gaussJordanInverse();
+                break;
+
+              case 2:
+                matrix.cofactorInverse();
+                break;
+
+              default:
+                break;
+            }
+
+            System.out.println("Matriks Balikan : ");
             matrix.DisplayMatrix();
           }
-          System.out.println("Matriks Balikan : ");
-          matrix.Inverse();
-          matrix.DisplayMatrix();
+          else{
+            System.out.println("Matriks tidak memiliki balikan.");
+          }
 
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
 
         case 4:
-          String x= in.nextLine();
-          x = x.replaceAll(" ","").replaceAll("\\(","").replaceAll("\\)","");
-          // arrayIn still contains n and x (x which y is searched)
+          matrix.CreateMatrix();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
+
+          String x = in.nextLine();
+          x = x.replaceAll(" ", "").replaceAll("\\(", "").replaceAll("\\)", "");
           String[] arrayIn = x.split(",");
-          Integer n = Integer.parseInt(arrayIn[0]);
-          Double xIn = Double.parseDouble(arrayIn[arrayIn.length-1]);
-          // arrayDouble contains only the provided data of x and y
-          double[] arrayDouble = new double[n*2];
-          for (int i=0; i<n*2;i++){
-              arrayDouble[i] = Double.parseDouble(arrayIn[i+1]);
+          double[] arrayDouble = new double[Integer.parseInt(arrayIn[0]) * 2 + 2];
+          for (int i = 0; i < Integer.parseInt(arrayIn[0]) * 2 + 2; i++) {
+            arrayDouble[i] = Double.parseDouble(arrayIn[i]);
           }
-          Matrix matrixInterpolasi = new Matrix(n,n+1);
-          for(int i=0; i<matrixInterpolasi.rows;i=i+2){
-            for (int j=0; j<matrixInterpolasi.columns;j++){
-              if (j!=matrixInterpolasi.columns-2){
-                matrixInterpolasi.matrix[i][j] = Math.pow(arrayDouble[i], j);
-              } else{
-                matrixInterpolasi.matrix[i][j] = arrayDouble[i+1];
-              }
+          for (double a : arrayDouble)
+            System.out.println(a);
+          Matrix matrixInterpolasi = new Matrix(Integer.parseInt(arrayIn[0]), 2);
+          for (int i = 0; i < matrixInterpolasi.rows; i++) {
+            for (int j = 0; j < matrixInterpolasi.columns; j++) {
             }
           }
-          matrixInterpolasi.interpolation(Integer.parseInt(arrayIn[arrayIn.length-1]));
+          matrixInterpolasi.interpolation(Integer.parseInt(arrayIn[arrayIn.length - 1]));
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
 
         case 5:
+          matrix.CreateMatrix();
+          System.out.println("Matriks yang telah dibuat: ");
+          matrix.DisplayMatrix();
 
+          matrix.multipleLinearReg(0.5, 76, 29.30);
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
@@ -129,4 +170,3 @@ public class Main {
     in.close();
   }
 }
-// Salam, Ada Nyamuk :D
