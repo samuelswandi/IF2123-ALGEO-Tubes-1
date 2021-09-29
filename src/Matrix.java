@@ -313,6 +313,15 @@ public class Matrix {
         this.DisplayMatrix2();
     }
 
+    void SPLGauss(){
+        /* Mencari Solusi SPL dengan metode Gauss */
+        /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
+        /*
+         * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
+         * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
+         */
+    }
+
     int CheckMatrix(){
         /* Mengecek apakah matriks memiliki satu unik, banyak, atau tidak ada solusi*/
         /* I.S. = Matrix sudah merupakan matrix baris tereduksi */

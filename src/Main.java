@@ -37,6 +37,8 @@ public class Main {
             case 1:
               double[] temp = matrix.GaussTransform();
               matrix.DisplayMatrix();
+              int choice23 = matrix.CheckMatrix();
+              System.out.println(choice23);
               break;
             case 2:
               matrix.GaussJordanTransform();
@@ -130,10 +132,6 @@ public class Main {
           break;
 
         case 4:
-          matrix.CreateMatrix();
-          System.out.println("Matriks yang telah dibuat: ");
-          matrix.DisplayMatrix();
-
           String x = in.nextLine();
           x = x.replaceAll(" ", "").replaceAll("\\(", "").replaceAll("\\)", "");
           String[] arrayIn = x.split(",");
