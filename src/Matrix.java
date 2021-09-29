@@ -20,15 +20,15 @@ public class Matrix {
         System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file) : ");
         int choice = in.nextInt();
         if (choice == 1) {
-            System.out.print("Masukkan ukuran matriks (m[baris] n[kolom]): ");
+            System.out.print("Masukkan ukuran matriks m(baris) n(kolom): ");
             this.rows = in.nextInt();
             this.columns = in.nextInt();
 
             System.out.println("Masukkan elemen matriks: ");
-            this.matrix = new double[rows][columns];
+            this.matrix = new double[this.rows][this.columns];
 
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < columns; j++) {
+            for (int i = 0; i < this.rows; i++) {
+                for (int j = 0; j < this.columns; j++) {
                     this.matrix[i][j] = in.nextFloat();
                 }
             }
@@ -39,13 +39,13 @@ public class Matrix {
                 File text = new File(scnr.nextLine());
                 scnr = new Scanner(text);
 
-                System.out.print("Masukkan ukuran matriks (m[baris] n[kolom]): ");
+                System.out.print("Masukkan ukuran matriks m(baris) n(kolom): ");
                 this.rows = in.nextInt();
                 this.columns = in.nextInt();
-                this.matrix = new double[rows][columns];
+                this.matrix = new double[this.rows][this.columns];
 
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
+                for (int i = 0; i < this.rows; i++) {
+                    for (int j = 0; j < this.columns; j++) {
                         this.matrix[i][j] = scnr.nextDouble();
                     }
                 }
@@ -69,16 +69,16 @@ public class Matrix {
         System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file): ");
         int choice = in.nextInt();
         if (choice == 1) {
-            System.out.print("Masukkan ukuran matriks (n[baris & kolom]): ");
+            System.out.print("Masukkan ukuran matriks n(baris & kolom): ");
             int n = in.nextInt();
             this.rows = n;
             this.columns = n;
 
-            System.out.println("Masukkan elemen matriks (n[baris & kolom]): ");
+            System.out.println("Masukkan elemen matriks: ");
             this.matrix = new double[n][n];
 
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < columns; j++) {
+            for (int i = 0; i < this.rows; i++) {
+                for (int j = 0; j < this.columns; j++) {
                     this.matrix[i][j] = in.nextFloat();
                 }
             }
@@ -89,14 +89,14 @@ public class Matrix {
                 File text = new File(scnr.nextLine());
                 scnr = new Scanner(text);
 
-                System.out.print("Masukkan ukuran matriks (n x n): ");
+                System.out.print("Masukkan ukuran matriks n(baris & kolom): ");
                 int n = in.nextInt();
                 this.rows = n;
                 this.columns = n;
                 this.matrix = new double[n][n];
 
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
+                for (int i = 0; i < this.rows; i++) {
+                    for (int j = 0; j < this.columns; j++) {
                         this.matrix[i][j] = scnr.nextDouble();
                     }
                 }
