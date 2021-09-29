@@ -126,6 +126,23 @@ public class Matrix {
         }
     }
 
+    void DisplayMatrix2() {
+        /* Mencetak matrix ke layar dengan format SPL*/
+        /* I.S. = Matrix bebas terdefinisi */
+        /*
+         * F.S. = Tercetak elemen-elemen Matrix ke layar sesuai dengan format penulisan
+         * matriks contoh : 1 0 0 0 1 0 0 0 1
+         */
+        int i = 1;
+        for (double[] row : this.matrix) {
+            for (double col : row) {
+                System.out.print("X" + i + " = " + col + " ");
+                i++;
+            }
+            System.out.println();
+        }
+    }
+
     /***** KELOMPOK OPERASI PRIMITIF TERHADAP MATRIX *****/
 
     void Transpose() {
@@ -237,7 +254,7 @@ public class Matrix {
         double a = this.matrix[this.rows-1][this.columns-2];
         double b = this.matrix[this.rows-1][this.columns-1];
     }
-    
+
     void SPLInverse() {
         /* Mencari Solusi SPL dengan metode inverse */
         /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
@@ -263,7 +280,7 @@ public class Matrix {
         mOut.CofactorInverse();
         this.matrix = mOut.Multiply(temp.matrix);
         this.columns = 1;
-        this.DisplayMatrix();
+        this.DisplayMatrix2();
     }
 
     void SPLCramer() {
