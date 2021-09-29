@@ -598,7 +598,7 @@ public class Matrix {
         double y = 0;
         String p = "y = ";
         System.out.println("Persamaan yang diperoleh: ");
-        
+
         for (int i = 0; i < this.rows; i++) {
             if (i == 0) {
                 p += this.matrix[i][0];
@@ -661,13 +661,15 @@ public class Matrix {
             }
             System.out.println("");
         }
+        
         System.out.print("Masukkan data Humidity: ");
-        double humidity= in.nextFloat(); 
+        double humidity= in.nextDouble(); 
         System.out.print("Masukkan data Temperature: ");
-        double temp= in.nextFloat(); 
+        double temp= in.nextDouble(); 
         System.out.print("Masukkan data Pressure: ");
-        double p= in.nextFloat();
+        double p= in.nextDouble();
         double[] data = { 1, humidity, temp, p };
+
         String pers = "y = ";
         double y = 0;
         for (int i = 0; i < eq.rows; i++) {
