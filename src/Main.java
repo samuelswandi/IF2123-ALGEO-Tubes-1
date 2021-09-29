@@ -44,11 +44,11 @@ public class Main {
               break;
             case 3:
               // Metode invers
-              matrix.SPLbalikan();
+              matrix.SPLInverse();
 
               break;
             case 4:
-              matrix.SPLcramer();
+              matrix.SPLCramer();
               break;
             default:
 
@@ -75,10 +75,10 @@ public class Main {
 
           switch (case2Choice) {
             case 1:
-              det = matrix.gaussDeterminan();
+              det = matrix.GaussDeterminan();
               break;
             case 2:
-              det = matrix.cofactorDeterminan();
+              det = matrix.CofactorDeterminan();
               break;
             default:
               break;
@@ -102,14 +102,14 @@ public class Main {
           System.out.print("Masukkan angka untuk memilih metode: ");
           int case3Choice = in.nextInt();
           
-          if (matrix.cofactorDeterminan() != 0){
+          if (matrix.CofactorDeterminan() != 0){
             switch (case3Choice) {
               case 1:
-                matrix.gaussJordanInverse();
+                matrix.GaussJordanInverse();
                 break;
 
               case 2:
-                matrix.cofactorInverse();
+                matrix.CofactorInverse();
                 break;
 
               default:
@@ -146,7 +146,7 @@ public class Main {
             for (int j = 0; j < matrixInterpolasi.columns; j++) {
             }
           }
-          matrixInterpolasi.interpolation(Integer.parseInt(arrayIn[arrayIn.length - 1]));
+          matrixInterpolasi.Interpolation(Integer.parseInt(arrayIn[arrayIn.length - 1]));
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
@@ -156,7 +156,7 @@ public class Main {
           System.out.println("Matriks yang telah dibuat: ");
           matrix.DisplayMatrix();
 
-          matrix.multipleLinearReg(0.5, 76, 29.30);
+          matrix.MultipleLinearReg(0.5, 76, 29.30);
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
