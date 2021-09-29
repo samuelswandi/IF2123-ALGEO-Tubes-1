@@ -20,7 +20,7 @@ public class Matrix {
         System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file) : ");
         int choice = in.nextInt();
         if (choice == 1) {
-            System.out.print("Masukkan ukuran matriks (m x n): ");
+            System.out.print("Masukkan ukuran matriks (m[baris] n[kolom]): ");
             this.rows = in.nextInt();
             this.columns = in.nextInt();
 
@@ -74,7 +74,7 @@ public class Matrix {
             this.rows = n;
             this.columns = n;
 
-            System.out.println("Masukkan elemen matriks: ");
+            System.out.println("Masukkan elemen matriks (n[baris & kolom]): ");
             this.matrix = new double[n][n];
 
             for (int i = 0; i < rows; i++) {
@@ -217,7 +217,7 @@ public class Matrix {
         }
     }
 
-    double diagonalProduct() {
+    double DiagonalProduct() {
         /* Mengalikan setiap element diagonal matriks */
         /* I.S. = Matrix SQUARE terdefinisi */
         /*
@@ -237,6 +237,7 @@ public class Matrix {
         double a = this.matrix[this.rows-1][this.columns-2];
         double b = this.matrix[this.rows-1][this.columns-1];
     }
+    
     void SPLInverse() {
         /* Mencari Solusi SPL dengan metode inverse */
         /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
@@ -295,6 +296,45 @@ public class Matrix {
         this.DisplayMatrix();
     }
 
+    int CheckMatrix(){
+        /* Mengecek apakah matriks memiliki satu unik, banyak, atau tidak ada solusi*/
+        /* I.S. = Matrix sudah merupakan matrix baris tereduksi */
+        /*
+         * F.S. = Tercetak solusi apakah matriks memiliki satu unik, banyak, atau tidak ada solusi
+         * 0 = Satu solusi yang unik
+         * 1 = Banyak solusi
+         * 2 = Tidak ada solusi
+         */
+        boolean temp = true;
+        for(int j = 0; j < this.columns ; j++) {
+            if (this.matrix[this.rows-1][j] != 0) {
+                temp = false;
+            }
+        }
+        if (temp) {
+            return 1;
+        } else {
+            boolean temp2 = true;
+            for(int j = 0; j < this.columns ; j++) {
+                if(j == this.columns - 1) {
+                    if(this.matrix[this.rows-1][j] == 0){
+                        temp2 = false;
+                    }
+                } else {
+                    if(this.matrix[this.rows-1][j] != 0) {
+                        temp2 = false;
+                    }
+                }
+            }
+            if (temp2) {
+                return 2;
+            } else {
+                return 0;
+            }
+        }
+
+    }
+
     /***** KELOMPOK ALGORITMA DETERMINAN *****/
     double CofactorDeterminan() {
         /* Prekondisi: Matrix berjenis matriks persegi (berukuran N x N) */
@@ -331,7 +371,7 @@ public class Matrix {
         /* Prekondisi: Matrix berjenis matriks persegi (berukuran N x N) */
         /* Menghitung nilai determinan Matrix */
         double[] temp = this.GaussTransform();
-        return this.diagonalProduct() * Math.pow(-1,temp[0]) / temp[1];
+        return this.DiagonalProduct() * Math.pow(-1,temp[0]) / temp[1];
     }
 
     /***** KELOMPOK PENYELESAIAN INVERSE MATRIX *****/

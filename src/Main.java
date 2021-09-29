@@ -41,6 +41,8 @@ public class Main {
             case 2:
               matrix.GaussJordanTransform();
               matrix.DisplayMatrix();
+              int choice12 = matrix.CheckMatrix();
+              System.out.println(choice12);
               break;
             case 3:
               // Metode invers
