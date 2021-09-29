@@ -290,7 +290,7 @@ public class Matrix {
          * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
-        double det = this.CofactorDeterminan();
+        double det = this.GaussDeterminan();
         Matrix result = new Matrix(this.rows, 1);
         for (int i = 0; i < this.rows; i++) {
             // Temporary Matrix for Value Assigning
@@ -305,12 +305,12 @@ public class Matrix {
                 }
             }
             // Assign Temporary Matrix Determinant for Variable's Resolver
-            result.matrix[i][0] = temp.CofactorDeterminan() / det;
+            result.matrix[i][0] = temp.GaussDeterminan() / det;
         }
         System.out.println("Hasil SPL :");
         this.matrix = result.matrix;
         this.columns = 1;
-        this.DisplayMatrix();
+        this.DisplayMatrix2();
     }
 
     int CheckMatrix(){
