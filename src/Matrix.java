@@ -842,7 +842,7 @@ public class Matrix {
             }
         }
         
-        return("Persamaan yang diperoleh: \n" + pers +"\nUntuk data humidity " + humidity + " temperature " + temp + " dan pressure " + p
-                + ", estimasi NO yang diperoleh adalah sebanyak " + y);
+        return("Persamaan yang diperoleh: \n" + pers +"\nUntuk data X1 " + humidity + " X2 " + temp + " dan X3 " + p
+                + ", estimasi Y yang diperoleh adalah sebanyak " + y);
     }
 }
