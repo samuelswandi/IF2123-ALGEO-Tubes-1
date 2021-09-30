@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 import java.lang.Math;
 
 public class Matrix {
@@ -17,7 +17,7 @@ public class Matrix {
         /* I.S. = - */
         /* F.S. = Terbentuk Matrix sesuai dengan inputan pengguna */
         Scanner in = new Scanner(System.in);
-        System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file) : ");
+        System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file): ");
         int choice = in.nextInt();
         if (choice == 1) {
             System.out.print("Masukkan ukuran matriks m(baris) n(kolom): ");
@@ -109,6 +109,81 @@ public class Matrix {
             System.out.println("Pilihan yang anda masukkan salah");
         }
 
+    }
+
+    void SaveToFile(int choice) {
+        /* Membaca dan Membuat File Baru untuk memasukkan matrix*/
+        /* I.S. = - */
+        /* F.S. = Terbentuk file baru atau menulis file yang sudah ada */
+        try {
+            Scanner in = new Scanner(System.in);
+            if (choice == 1) {
+                System.out.print("Masukkan nama file beserta extension(.txt): ");
+                FileWriter myWriter = new FileWriter(in.nextLine());
+                for (int i = 0; i < this.rows; i++) {
+                    for (int j = 0;j< this.columns;j++){
+                        myWriter.write(Double.toString(this.matrix[i][j]));
+                        myWriter.write(" ");
+                    }
+                    myWriter.write("\n");
+                }
+                System.out.println("File telah berhasil dibuat!\n");
+                myWriter.close();
+            } else {
+                System.out.println("");
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    void SaveToFile2(int choice, double det) {
+        /* Membaca dan Membuat File Baru untuk memasukkan determinan*/
+        /* I.S. = - */
+        /* F.S. = Terbentuk file baru atau menulis file yang sudah ada */
+        try {
+            Scanner in = new Scanner(System.in);
+            if (choice == 1) {
+                System.out.print("Masukkan nama file beserta extension(.txt): ");
+                FileWriter myWriter = new FileWriter(in.nextLine());
+                myWriter.write("Determinan = ");
+                myWriter.write(Double.toString(det));
+                myWriter.write("\n");
+                System.out.println("File telah berhasil dibuat!\n");
+                myWriter.close();
+            } else {
+                System.out.println("");
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    void SaveToFile3(int choice, String sentence) {
+        /* Membaca dan Membuat File Baru untuk memasukkan determinan*/
+        /* I.S. = - */
+        /* F.S. = Terbentuk file baru atau menulis file yang sudah ada */
+        try {
+            Scanner in = new Scanner(System.in);
+            if (choice == 1) {
+                System.out.print("Masukkan nama file beserta extension(.txt): ");
+                FileWriter myWriter = new FileWriter(in.nextLine());
+                myWriter.write(sentence);
+                myWriter.write("\n");
+                System.out.println("File telah berhasil dibuat!\n");
+                myWriter.close();
+            } else {
+                System.out.println("");
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     void DisplayMatrix() {
@@ -678,12 +753,11 @@ public class Matrix {
 
     /***** KELOMPOK ALGORITMA TURUNAN *****/
 
-    void Interpolation(double x) {
+    String Interpolation(double x) {
         // Scanner in = new Scanner(System.in);
         this.SPLInverse();
         double y = 0;
         String p = "y = ";
-        System.out.println("Persamaan yang diperoleh: ");
 
         for (int i = 0; i < this.rows; i++) {
             if (i == 0) {
@@ -700,12 +774,12 @@ public class Matrix {
             y = y + this.matrix[i][0] * (Math.pow(x, i));
         }
 
+
         System.out.println(p);
-        System.out.print("Untuk x dengan nilai " + x + ", hasil yang diperoleh: ");
-        System.out.println(y);
+        return ("Persamaan yang diperoleh: \n"+ p + "\nUntuk x dengan nilai " + x + ", hasil yang diperoleh: " + y +"\n");
     }
 
-    void MultipleLinearReg() {
+    String MultipleLinearReg() {
         Scanner in = new Scanner(System.in);
         Matrix eq = new Matrix(this.columns, this.columns+1);
         for (int i = 0; i <eq.rows; i++) {
@@ -768,9 +842,7 @@ public class Matrix {
             }
         }
         
-        System.out.println("Persamaan yang diperoleh: ");
-        System.out.println(pers);
-        System.out.println("Untuk data humidity " + humidity + " temperature " + temp + " dan pressure " + p
+        return("Persamaan yang diperoleh: \n" + pers +"\nUntuk data humidity " + humidity + " temperature " + temp + " dan pressure " + p
                 + ", estimasi NO yang diperoleh adalah sebanyak " + y);
     }
 }

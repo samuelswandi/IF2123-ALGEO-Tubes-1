@@ -53,11 +53,14 @@ public class Main {
             case 3:
               // Metode invers
               matrix.SPLInverse();
-
+              int temp = menuSave();
+              matrix.SaveToFile(temp);
               break;
 
             case 4:
               matrix.SPLCramer();
+              int temp1 = menuSave();
+              matrix.SaveToFile(temp1);
               break;
             default:
 
@@ -94,7 +97,10 @@ public class Main {
           }
 
           System.out.print("Determinan dari matriks adalah: ");
-          System.out.print(det);
+          System.out.println(det);
+
+          int temp = menuSave();
+          matrix.SaveToFile2(temp,det);
 
           System.out.print("\nMasukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
@@ -127,6 +133,10 @@ public class Main {
 
             System.out.println("Matriks Balikan : ");
             matrix.DisplayMatrix();
+
+            int temp2 = menuSave();
+            matrix.SaveToFile(temp2);
+
           }
           else{
             System.out.println("Matriks tidak memiliki balikan.");
@@ -163,7 +173,12 @@ public class Main {
             }
           }
           
-          eqMatrix.Interpolation(Double.parseDouble(arrayIn[Integer.parseInt(arrayIn[0]) * 2 + 1]));
+          String sentence = eqMatrix.Interpolation(Double.parseDouble(arrayIn[Integer.parseInt(arrayIn[0]) * 2 + 1]));
+          System.out.println(sentence);
+
+          int temp3 = menuSave();
+          matrix.SaveToFile3(temp3,sentence);
+
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
@@ -173,7 +188,11 @@ public class Main {
           System.out.println("Matriks yang telah dibuat: ");
           matrix.DisplayMatrix();
 
-          matrix.MultipleLinearReg();
+          String sentence1 = matrix.MultipleLinearReg();
+          System.out.println(sentence1);
+          int temp4 = menuSave();
+          matrix.SaveToFile3(temp4, sentence1);
+
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
@@ -186,4 +205,12 @@ public class Main {
     System.out.println("Terimakasih telah menggunakan Pengolah Matriks!");
     in.close();
   }
+
+  public static int menuSave(){
+    Scanner in = new Scanner(System.in);
+    System.out.print("Apakah anda ingin menyimpan hasil dalam file(1:ya, 2:tidak): ");
+    int choice = in.nextInt();
+    return choice;
+  }
+
 }
