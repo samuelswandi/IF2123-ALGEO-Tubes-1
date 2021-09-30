@@ -423,6 +423,16 @@ public class Matrix {
         return flag;
     }
 
+    int countZeroRow(){
+        int count = 0;
+        for (int i = 0 ; i < this.rows ; i++){
+            if (this.zeroRow(i)){
+                count++;
+            }
+        }
+        return count;
+    }
+
     void gaussMultipleSolution(){
         /* Penyelesaian tipe matrix Unique Solution (Gauss/Gauss-Jordan SPL Method) */
         /* I.S. = Matrix echelon baris biasa / tereduksi bertipe Multiple Solution */
