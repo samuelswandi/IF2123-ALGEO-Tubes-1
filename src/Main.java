@@ -35,23 +35,27 @@ public class Main {
           int case1Choice = in.nextInt();
 
           switch (case1Choice) {
+
             case 1:
-              double[] temp = matrix.GaussTransform();
-              matrix.DisplayMatrix();
-              int choice23 = matrix.CheckMatrix();
-              System.out.println(choice23);
+              // double[] temp = matrix.GaussTransform();
+              // matrix.DisplayMatrix();
+              // int choice23 = matrix.CheckMatrix();
+              matrix.SPLGauss();
               break;
+            
             case 2:
               matrix.GaussJordanTransform();
               matrix.DisplayMatrix();
               int choice12 = matrix.CheckMatrix();
               System.out.println(choice12);
               break;
+
             case 3:
               // Metode invers
               matrix.SPLInverse();
 
               break;
+
             case 4:
               matrix.SPLCramer();
               break;
