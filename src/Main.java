@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -132,24 +133,33 @@ public class Main {
           break;
 
         case 4:
-          matrix.CreateMatrix();
-          System.out.println("Matriks yang telah dibuat: ");
-          matrix.DisplayMatrix();
-          // String x = in.nextLine();
-          // x = x.replaceAll(" ", "").replaceAll("\\(", "").replaceAll("\\)", "");
-          // String[] arrayIn = x.split(",");
-          // double[] arrayDouble = new double[Integer.parseInt(arrayIn[0]) * 2 + 2];
-          // for (int i = 0; i < Integer.parseInt(arrayIn[0]) * 2 + 2; i++) {
-          //   arrayDouble[i] = Double.parseDouble(arrayIn[i]);
-          // }
-          // for (double a : arrayDouble)
-          //   System.out.println(a);
-          // Matrix matrixInterpolasi = new Matrix(Integer.parseInt(arrayIn[0]), 2);
-          // for (int i = 0; i < matrixInterpolasi.rows; i++) {
-          //   for (int j = 0; j < matrixInterpolasi.columns; j++) {
-          //   }
-          // }
-          matrix.Interpolation();
+          System.out.println("Masukkan input dengan format n,(X1,Y1),...,(Xn,Yn),X");
+          Scanner sc = new Scanner(System.in);
+          String x = sc.nextLine();
+          x = x.replaceAll(" ", "").replaceAll("\\(", "").replaceAll("\\)", "");
+          String[] arrayIn = x.split(",");
+
+          double[] arrayDouble = new double[Integer.parseInt(arrayIn[0]) * 2];
+          for (int i = 1; i < Integer.parseInt(arrayIn[0]) * 2 + 1 ; i++) {
+            arrayDouble[i - 1] = Double.parseDouble(arrayIn[i]);
+          }
+
+          //initialize Equation Matrix
+          Matrix eqMatrix = new Matrix(Integer.parseInt(arrayIn[0]), Integer.parseInt(arrayIn[0]) + 1);
+
+
+          for (int i = 0 ; i < Integer.parseInt(arrayIn[0]) ; i++){
+            for (int j = 0 ; j < Integer.parseInt(arrayIn[0]) + 1 ; j++){
+                if (j == Integer.parseInt(arrayIn[0])){
+                  eqMatrix.matrix[i][j] = arrayDouble[i*2 + 1];
+                }
+                else{
+                  eqMatrix.matrix[i][j] = Math.pow(arrayDouble[i*2], j);
+                }
+            }
+          }
+          
+          eqMatrix.Interpolation(Double.parseDouble(arrayIn[Integer.parseInt(arrayIn[0]) * 2 + 1]));
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
           break;
