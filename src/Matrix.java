@@ -316,6 +316,56 @@ public class Matrix {
        
     }
 
+    void gaussUniqueSolution(){
+        /* Penyelesaian tipe matrix Unique Solution (Gauss/Gauss-Jordan SPL Method) */
+        /* I.S. = Matrix echelon baris biasa / tereduksi bertipe Unique Solution */
+        /*
+         * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N = matrix.rows
+         */
+        double[] result = new double[this.rows];
+        for(int i = this.rows - 1; i >= 0 ; i--){
+            result[i] = this.matrix[i][this.columns - 1];
+            for (int j = this.columns - 2 ; j > i; j--){
+                result[i] -= this.matrix[i][j] * result[j];
+            }
+        }
+        System.out.println("-----UNIQUE SOLUTION(S)-----");
+        for(int i = 0 ; i < this.rows ; i++){
+            System.out.println("X" + (i+1) + " = " + result[i]);
+        }
+    }
+
+    boolean zeroRow(int i){
+        /* Memeriksa suatu baris terdiri atas 0 seluruhnya. */
+        /* Prekondisi : Matrix tidak kosong, minimal 1x1 */
+        /* Mengembalikan true apabila suatu baris memiliki elemen 0 seluruhnya */
+        boolean flag = true;
+        int col = 0;
+        while (col < this.columns && flag){
+            if (this.matrix[i][col] != 0){flag = false;} 
+            col++;
+        }
+        return flag;
+    }
+
+    void gaussMultipleSolution(){
+        /* Penyelesaian tipe matrix Unique Solution (Gauss/Gauss-Jordan SPL Method) */
+        /* I.S. = Matrix echelon baris biasa / tereduksi bertipe Multiple Solution */
+        /*
+         * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N = matrix.rows, menggunakan
+         * pendekatan parametrik dengan batasan alfabet (p - z) [ASCII 112 - 122]
+         */
+        // double[] result = new double[this.rows];
+
+        // for(int i = this.rows - 1; i >= 0 ; i--){
+        //     result[i] = this.matrix[i][this.columns - 1];
+        //     for (int j = this.columns - 2 ; j > i; j--){
+        //         result[i] -= this.matrix[i][j] * result[j];
+        //     }
+        // }
+    }
+
+
     void SPLGauss(){
         /* Mencari Solusi SPL dengan metode Gauss */
         /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
@@ -323,6 +373,29 @@ public class Matrix {
          * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
+        double[] temp = this.GaussTransform();
+        this.TransformOne();
+        switch(this.CheckMatrix()){
+
+            //Segmen Solusi Unik
+            case 0:
+            this.gaussUniqueSolution();
+            break;
+            
+            //Segmen Solusi Banyak
+            case 1:
+            this.gaussMultipleSolution();
+            break;
+
+            //Segmen Tidak Terdapat Solusi
+            case 2:
+            System.out.println("SPL tidak memiliki solusi penyelesaian.");
+            break;
+            
+            default:
+
+            break;
+        }
     }
 
     int CheckMatrix(){
