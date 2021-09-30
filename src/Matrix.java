@@ -741,7 +741,7 @@ public class Matrix {
 
     void GaussJordanTransform(){
         /* I.S. = Matrix Terdefinisi */
-        /* F.S. = Terbentuk Matrix eselon baris */
+        /* F.S. = Terbentuk Matrix eselon baris tereduksi*/
         double[] temp = this.GaussTransform();
         this.TransformOne();
         for(int row = 0 ; row < this.rows ; row++){
@@ -764,6 +764,10 @@ public class Matrix {
     /***** KELOMPOK ALGORITMA TURUNAN *****/
 
     String Interpolation(double x) {
+    /*Menghasilkan persamaan dan taksiran nilai dari suatu persamaan yang dicari melalui beberapa titik dengan x nilai yang dicari*/
+    /*I.S. = titik-titik pembentuk persamaan didefinisikan dalam bentuk matrix berukuran sesuai banyaknya titik*/
+    /*F.S = didapat persamaan yang melewati semua titik yang diketahui dan taksiran nilai y untuk x yang dicari*/
+
         // Scanner in = new Scanner(System.in);
         this.SPLInverse();
         double y = 0;
@@ -787,6 +791,10 @@ public class Matrix {
     }
 
     String MultipleLinearReg() {
+    /*Menghasilkan persamaan dan taksiran nilai dari suatu persamaan yang dicari melalui beberapa data*/
+    /*I.S. = data-data pembentuk persamaan didefinisikan dalam bentuk matrix berukuran sesuai banyaknya data*/
+    /*F.S = didapat persamaan dari semua data yang diketahui dan taksiran dari data dengan memasukkan data yang ingin dicari taksirannya*/
+
         Scanner in = new Scanner(System.in);
         Matrix eq = new Matrix(this.columns, this.columns+1);
         for (int i = 0; i <eq.rows; i++) {
