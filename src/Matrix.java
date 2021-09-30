@@ -522,6 +522,10 @@ public class Matrix {
     }
 
     void SwapRow(int i, int j){
+        /* I.S. = Matrix terdefnisi , i dan j merupakan index baris terdefinisi */
+        /*
+         * F.S. = Mempertukarkan baris i dengan baris j pada Matrix.
+         */
         for(int col = 0 ; col < this.columns ; col++){
             double temp;
             temp = this.matrix[i][col];
@@ -601,8 +605,8 @@ public class Matrix {
 
     /***** KELOMPOK ALGORITMA TURUNAN *****/
 
-    void Interpolation() {
-        Scanner in = new Scanner(System.in);
+    void Interpolation(double x) {
+        // Scanner in = new Scanner(System.in);
         this.SPLInverse();
         double y = 0;
         String p = "y = ";
@@ -617,8 +621,8 @@ public class Matrix {
                 p += " + " + this.matrix[i][0] + "x**" + i;
             }
         }
-        System.out.print("Masukkan nilai x: ");
-        double x = in.nextFloat();
+        // System.out.print("Masukkan nilai x: ");
+        // double x = in.nextFloat();
         for (int i = 0; i < this.rows; i++) {
             y = y + this.matrix[i][0] * (Math.pow(x, i));
         }
@@ -671,11 +675,11 @@ public class Matrix {
             System.out.println("");
         }
         
-        System.out.print("Masukkan data Humidity: ");
+        System.out.print("Masukkan data X1: ");
         double humidity= in.nextDouble(); 
-        System.out.print("Masukkan data Temperature: ");
+        System.out.print("Masukkan data X2: ");
         double temp= in.nextDouble(); 
-        System.out.print("Masukkan data Pressure: ");
+        System.out.print("Masukkan data X3: ");
         double p= in.nextDouble();
         double[] data = { 1, humidity, temp, p };
 
@@ -687,7 +691,7 @@ public class Matrix {
                 pers += eq.matrix[i][0];
             } 
             else {
-                pers += " + x"+i+"*"+ eq.matrix[i][0];
+                pers += " + X"+i+"*"+ eq.matrix[i][0];
             }
         }
         
