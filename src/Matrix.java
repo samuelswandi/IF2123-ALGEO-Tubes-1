@@ -348,7 +348,7 @@ public class Matrix {
             System.out.println("Matriks tidak memiliki invers!");
         } else {
             System.out.println("Hasil SPL :");
-            mOut.CofactorInverse();
+            mOut.GaussJordanInverse();
             this.matrix = mOut.Multiply(temp.matrix);
             this.columns = 1;
             this.DisplayMatrix2();
@@ -814,7 +814,7 @@ public class Matrix {
             }
         }
         // eq.DisplayMatrix();
-        
+
         for (int i=0; i<eq.rows;i++){
             for (int j=0;j<eq.columns;j++){
                 if (i==eq.rows-2){
@@ -827,7 +827,7 @@ public class Matrix {
             }
             System.out.println("");
         }
-
+        
         eq.SPLInverse();
         
         System.out.print("Masukkan data X1: ");
