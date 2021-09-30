@@ -783,9 +783,6 @@ public class Matrix {
         for (int i = 0; i < this.rows; i++) {
             y = y + this.matrix[i][0] * (Math.pow(x, i));
         }
-
-
-        System.out.println(p);
         return ("Persamaan yang diperoleh: \n"+ p + "\nUntuk x dengan nilai " + x + ", hasil yang diperoleh: " + y +"\n");
     }
 
@@ -817,8 +814,7 @@ public class Matrix {
             }
         }
         // eq.DisplayMatrix();
-        eq.SPLInverse();
-
+        
         for (int i=0; i<eq.rows;i++){
             for (int j=0;j<eq.columns;j++){
                 if (i==eq.rows-2){
@@ -831,6 +827,8 @@ public class Matrix {
             }
             System.out.println("");
         }
+
+        eq.SPLInverse();
         
         System.out.print("Masukkan data X1: ");
         double humidity= in.nextDouble(); 
