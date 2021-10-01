@@ -463,7 +463,81 @@ public class Matrix {
          * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N = matrix.rows, menggunakan
          * pendekatan parametrik dengan batasan alfabet (p - z) [ASCII 112 - 122]
          */
+        //ciri ciri dari matriks yang memiliki banyak solusi adalah
+            //baris arr < (kolom arr - 1)
+            this.GaussJordanTransform();
+            boolean[] allZero = new boolean[this.rows];
+            boolean[] constant = new boolean[this.columns -1];
+
+            for (int i = 0; i < allZero.length; ++i){
+                allZero[i] = true;
+            }
+            for(int i =0;i<this.rows;i++){
+                for (int j = 0; j < this.columns - 1; ++j){
+                    if (this.matrix[i][j] != 0){
+                        allZero[i] = false;
+                        break;
+                    }
+                }
+            }
+           
+            for (int i = 0; i < (this.columns - 1); ++i){
+                constant[i] = false;
+            }
+
+            //mencari kolom mana saja yg memiliki leading entry
+            for(int i = 0; i < this.rows; ++i){
+                for (int j = 0; j < (this.columns - 1); ++j){
+                    if (this.matrix[i][j] == 1){
+                        constant[j] = true;
+                        break;
+                    }
+                }
+            }
+
+            String[] result = new String[this.columns - 1];
+            for (int i = 0; i < result.length; ++i){
+                result[i] = "0.0 ";
+            }
+
+
+            int alphCount = 0;
+            for (int i = 0; i < result.length; ++i){
+                if (!constant[i]){
+                    result[i] = Character.toString(alphCount+97);
+                    alphCount += 1;
+                }
+            }
+
+            for(int i = 0; i < this.rows; ++i){
+                if (!allZero[i]){
+                    int nonZero = -1;
+                    for (int j = 0; j < (this.columns - 1); ++j){
+                        if (this.matrix[i][j] == 1){
+                            nonZero = j;
+                            break;
+                        }
+                    }
+
+                    result[nonZero] = (this.matrix[i][this.columns - 1] != 0 ? ((this.matrix[i][this.columns - 1]) + " ") : "0.0 ");
+
+                    for (int j = nonZero + 1; j < (this.columns - 1); ++j){
+                        if (this.matrix[i][j] != 0){
+                            if (this.matrix[i][j] < 0){
+                                result[nonZero] += ("+" + (this.matrix[i][j]*-1) + result[j] + " ");
+                            } else {
+                                result[nonZero] += ("-" + (this.matrix[i][j]) + result[j] + " ");
+                            }
+                        }
+                    }
+                }
+            }
+            System.out.println("-----MULTIPLE SOLUTION(S)-----");
+            for(int i = 0; i < result.length; ++i){
+                System.out.println("x" + (i + 1) + " = " + result[i]);
+            }
     }
+    
 
 
     void SPLGauss(){
