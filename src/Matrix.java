@@ -345,7 +345,7 @@ public class Matrix {
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
         if (this.rows != this.columns-1){
-            System.out.println("Dibutuhkan " + this.columns +" persamaan untuk " + this.columns + " buah variabel!");
+            System.out.println("Dibutuhkan " + (this.columns - 1)+" persamaan untuk " + (this.columns - 1) + " buah variabel!");
         } else {
             int i, j, row = 0;
             Matrix mOut = new Matrix(this.rows, this.columns - 1);
@@ -382,7 +382,7 @@ public class Matrix {
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
         if(this.rows != this.columns-1){
-            System.out.println("Dibutuhkan " + this.columns +" persamaan untuk " + this.columns + " buah variabel!");
+            System.out.println("Dibutuhkan " + (this.columns - 1) +" persamaan untuk " + (this.columns - 1) + " buah variabel!");
         } else {
             double det = this.GaussDeterminan();
             if(Math.abs(det) <= 0.00000001) {
@@ -603,7 +603,7 @@ public class Matrix {
                 this.delLastRow();
             }
         }
-        
+
         switch(this.CheckMatrix()){
 
             //Segmen Solusi Unik
