@@ -331,8 +331,8 @@ public class Matrix {
          * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
-        if(this.rows != this.columns-1){
-            System.out.println("Dibutuhkan " + this.rows +" persamaan untuk " + this.rows + " buah variable!");
+        if (this.rows != this.columns-1){
+            System.out.println("Dibutuhkan " + this.columns +" persamaan untuk " + this.columns + " buah variabel!");
         } else {
             int i, j, row = 0;
             Matrix mOut = new Matrix(this.rows, this.columns - 1);
@@ -369,7 +369,7 @@ public class Matrix {
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
         if(this.rows != this.columns-1){
-            System.out.println("Dibutuhkan " + this.rows +" persamaan untuk " + this.rows + " buah variable!");
+            System.out.println("Dibutuhkan " + this.columns +" persamaan untuk " + this.columns + " buah variabel!");
         } else {
             double det = this.GaussDeterminan();
             if(det <= 0.00000000001 && det >= 0) {
