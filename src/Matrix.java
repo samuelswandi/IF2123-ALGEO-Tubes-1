@@ -331,28 +331,33 @@ public class Matrix {
          * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
-        int i, j, row = 0;
-        Matrix mOut = new Matrix(this.rows, this.columns - 1);
-        Matrix temp = new Matrix(this.rows, 1);
-        for (i = 0; i < this.rows; i++) {
-            for (j = 0; j < this.columns; j++) {
-                if (j == this.columns - 1) {
-                    temp.matrix[row][0] = this.matrix[i][j];
-                    row++;
-                } else {
-                    mOut.matrix[i][j] = this.matrix[i][j];
+        if(this.rows != this.columns-1){
+            System.out.println("Dibutuhkan " + this.rows +" persamaan untuk " + this.rows + " buah variable!");
+        } else {
+            int i, j, row = 0;
+            Matrix mOut = new Matrix(this.rows, this.columns - 1);
+            Matrix temp = new Matrix(this.rows, 1);
+            for (i = 0; i < this.rows; i++) {
+                for (j = 0; j < this.columns; j++) {
+                    if (j == this.columns - 1) {
+                        temp.matrix[row][0] = this.matrix[i][j];
+                        row++;
+                    } else {
+                        mOut.matrix[i][j] = this.matrix[i][j];
+                    }
                 }
             }
+            if(mOut.CofactorDeterminan() <= 0.0000000001 && mOut.CofactorDeterminan()>=0) {
+                System.out.println("Matriks tidak memiliki invers!");
+            } else {
+                System.out.println("Hasil SPL :");
+                mOut.GaussJordanInverse();
+                this.matrix = mOut.Multiply(temp.matrix);
+                this.columns = 1;
+                this.DisplayMatrix2();
+            }
         }
-        if(mOut.CofactorDeterminan() == 0) {
-            System.out.println("Matriks tidak memiliki invers!");
-        } else {
-            System.out.println("Hasil SPL :");
-            mOut.GaussJordanInverse();
-            this.matrix = mOut.Multiply(temp.matrix);
-            this.columns = 1;
-            this.DisplayMatrix2();
-        }
+        
         
     }
 
@@ -363,31 +368,36 @@ public class Matrix {
          * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
-        double det = this.GaussDeterminan();
-        if(det == 0) {
-            System.out.println("Determinan matriks 0!");
+        if(this.rows != this.columns-1){
+            System.out.println("Dibutuhkan " + this.rows +" persamaan untuk " + this.rows + " buah variable!");
         } else {
-            Matrix result = new Matrix(this.rows, 1);
-            for (int i = 0; i < this.rows; i++) {
-                // Temporary Matrix for Value Assigning
-                Matrix temp = new Matrix(this.rows, this.columns - 1);
-                for (int tempRow = 0; tempRow < this.rows; tempRow++) {
-                    for (int tempCol = 0; tempCol < this.columns - 1; tempCol++) {
-                        if (tempCol == i) {
-                            temp.matrix[tempRow][tempCol] = this.matrix[tempRow][this.columns - 1];
-                        } else {
-                            temp.matrix[tempRow][tempCol] = this.matrix[tempRow][tempCol];
+            double det = this.GaussDeterminan();
+            if(det <= 0.00000000001 && det >= 0) {
+                System.out.println("Determinan matriks 0!");
+            } else {
+                Matrix result = new Matrix(this.rows, 1);
+                for (int i = 0; i < this.rows; i++) {
+                    // Temporary Matrix for Value Assigning
+                    Matrix temp = new Matrix(this.rows, this.columns - 1);
+                    for (int tempRow = 0; tempRow < this.rows; tempRow++) {
+                        for (int tempCol = 0; tempCol < this.columns - 1; tempCol++) {
+                            if (tempCol == i) {
+                                temp.matrix[tempRow][tempCol] = this.matrix[tempRow][this.columns - 1];
+                            } else {
+                                temp.matrix[tempRow][tempCol] = this.matrix[tempRow][tempCol];
+                            }
                         }
                     }
+                    // Assign Temporary Matrix Determinant for Variable's Resolver
+                    result.matrix[i][0] = temp.GaussDeterminan() / det;
                 }
-                // Assign Temporary Matrix Determinant for Variable's Resolver
-                result.matrix[i][0] = temp.GaussDeterminan() / det;
+                System.out.println("Hasil SPL :");
+                this.matrix = result.matrix;
+                this.columns = 1;
+                this.DisplayMatrix2();
             }
-            System.out.println("Hasil SPL :");
-            this.matrix = result.matrix;
-            this.columns = 1;
-            this.DisplayMatrix2();
         }
+       
        
     }
 
