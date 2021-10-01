@@ -463,14 +463,6 @@ public class Matrix {
          * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N = matrix.rows, menggunakan
          * pendekatan parametrik dengan batasan alfabet (p - z) [ASCII 112 - 122]
          */
-        // double[] result = new double[this.rows];
-
-        // for(int i = this.rows - 1; i >= 0 ; i--){
-        //     result[i] = this.matrix[i][this.columns - 1];
-        //     for (int j = this.columns - 2 ; j > i; j--){
-        //         result[i] -= this.matrix[i][j] * result[j];
-        //     }
-        // }
     }
 
 
@@ -483,6 +475,40 @@ public class Matrix {
          */
         double[] temp = this.GaussTransform();
         this.TransformOne();
+        this.addZeroBelow();
+        switch(this.CheckMatrix()){
+
+            //Segmen Solusi Unik
+            case 0:
+            this.gaussUniqueSolution();
+            break;
+            
+            //Segmen Solusi Banyak
+            case 1:
+            this.gaussMultipleSolution();
+            break;
+
+            //Segmen Tidak Terdapat Solusi
+            case 2:
+            System.out.println("SPL tidak memiliki solusi penyelesaian.");
+            break;
+            
+            default:
+
+            break;
+        }
+    }
+
+
+    void SPLGaussJordan(){
+        /* Mencari Solusi SPL dengan metode Gauss-Jordan */
+        /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
+        /*
+         * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
+         * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
+         */
+        this.GaussJordanTransform();
+        this.addZeroBelow();
         switch(this.CheckMatrix()){
 
             //Segmen Solusi Unik
@@ -624,6 +650,22 @@ public class Matrix {
         //converting original matrix
         this.columns = this.columns / 2;
         this.matrix = deletedMatrix.matrix;
+    }
+
+    void addZeroBelow(){
+        Matrix tempMatrix = new Matrix(this.columns -1 , this.columns);
+        for(int i = 0 ; i < tempMatrix.rows ; i++){
+            for (int j =0 ; j < tempMatrix.columns ;j++){
+                if (i < this.rows){
+                    tempMatrix.matrix[i][j] = this.matrix[i][j];
+                }
+                else{
+                    tempMatrix.matrix[i][j] = 0.0;
+                }
+            }
+        }
+        this.matrix = tempMatrix.matrix;
+        this.rows = this.columns - 1;
     }
 
 
