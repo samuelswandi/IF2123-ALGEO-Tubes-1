@@ -14,7 +14,6 @@
     Folder doc berisi laporan
 
 ## Code **Syntax** and **Semantics** Guide :triangular_ruler:
----
 1.  _procedure_ : Short desc; IS and FS.
     ```java
         void SPLbalikan() {
