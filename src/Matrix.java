@@ -478,6 +478,10 @@ public class Matrix {
     }
 
     int countZeroRow() {
+        /* Menghitung baris yang terdiri atas 0 seluruhnya. */
+        /* Prekondisi : Matrix tidak kosong, minimal 1x1 */
+        /* I.S. = Matrix terdefinisi sesuai prekondisi */
+        /* F.S = mereturn jumlah baris yang elemennya semuanya 0 */
         int count = 0;
         for (int i = 0; i < this.rows; i++) {
             if (this.zeroRow(i)) {
@@ -803,6 +807,9 @@ public class Matrix {
     }
 
     void addZeroBelow() {
+        /* Menambahkan baris 0 di akhir baris */
+        /* Prekondisi : Matrix tidak kosong, minimal 1x1 */
+        /* Mengembalikan matrix yang sudah ditambahkan baris 0 di akhir*/
         Matrix tempMatrix = new Matrix(this.columns - 1, this.columns);
         for (int i = 0; i < tempMatrix.rows; i++) {
             for (int j = 0; j < tempMatrix.columns; j++) {
@@ -818,6 +825,9 @@ public class Matrix {
     }
 
     void transformNXN() {
+        /* Merubah matriks menjadi nxn */
+        /* Prekondisi : Matrix tidak kosong, minimal 1x1 */
+        /* Mengembalikan matriks yang berukuran nxn */
         Matrix tempMatrix = new Matrix(this.columns, this.columns);
         for (int i = 0; i < tempMatrix.rows; i++) {
             for (int j = 0; j < tempMatrix.columns; j++) {
@@ -829,6 +839,9 @@ public class Matrix {
     }
 
     void delLastRow() {
+        /* Menghapus baris terakhir matriks. */
+        /* Prekondisi : Matrix tidak kosong, minimal 1x1 */
+        /* Mengembalikan matrix yang sudah dihapus baris terakhirnya */
         Matrix tempMatrix = new Matrix(this.columns - 1, this.columns);
         for (int i = 0; i < tempMatrix.rows; i++) {
             for (int j = 0; j < tempMatrix.columns; j++) {
@@ -1010,8 +1023,6 @@ public class Matrix {
          * F.S = didapat persamaan yang melewati semua titik yang diketahui dan taksiran
          * nilai y untuk x yang dicari
          */
-
-        // Scanner in = new Scanner(System.in);
         this.SPLInverse();
         double y = 0;
         String p = "y = ";
@@ -1025,8 +1036,6 @@ public class Matrix {
                 p += " + " + this.matrix[i][0] + "x**" + i;
             }
         }
-        // System.out.print("Masukkan nilai x: ");
-        // double x = in.nextFloat();
         for (int i = 0; i < this.rows; i++) {
             y = y + this.matrix[i][0] * (Math.pow(x, i));
         }
@@ -1069,12 +1078,9 @@ public class Matrix {
                         count += this.matrix[k][i - 1] * this.matrix[k][j - 1];
                     }
                 }
-                // BigDecimal elmt = new BigDecimal(count).setScale(2, RoundingMode.HALF_UP);
-                // eq.matrix[i][j] = elmt.doubleValue();
                 eq.matrix[i][j] = count;
             }
         }
-        // eq.DisplayMatrix();
 
         for (int i = 0; i < eq.rows; i++) {
             for (int j = 0; j < eq.columns; j++) {
