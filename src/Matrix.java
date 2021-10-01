@@ -220,6 +220,19 @@ public class Matrix {
 
     /***** KELOMPOK OPERASI PRIMITIF TERHADAP MATRIX *****/
 
+    void validateZero(){
+        /* I.S. = Matrix terdefinisi */
+        /* F.S. = Elemen matriks dengan besar < abs(10^-8) diubah menjadi 0 */
+        for (int i = 0 ; i<this.rows ; i++){
+            for(int j = 0 ; j < this.columns ; j++){
+                if (Math.abs(this.matrix[i][j]) <= 0.00000001){
+                    this.matrix[i][j] = 0.0;
+                }
+            }
+        }
+    }
+
+
     void Transpose() {
         /* Menghasilkan matrix transpose */
         /* I.S. = Matrix persegi terdefinisi (Matriks berukuran N x N) */
@@ -347,7 +360,7 @@ public class Matrix {
                     }
                 }
             }
-            if(mOut.CofactorDeterminan() <= 0.0000000001 && mOut.CofactorDeterminan()>=0) {
+            if(Math.abs(mOut.CofactorDeterminan()) <= 0.0000000001) {
                 System.out.println("Matriks tidak memiliki invers!");
             } else {
                 System.out.println("Hasil SPL :");
@@ -372,7 +385,7 @@ public class Matrix {
             System.out.println("Dibutuhkan " + this.columns +" persamaan untuk " + this.columns + " buah variabel!");
         } else {
             double det = this.GaussDeterminan();
-            if(det <= 0.00000000001 && det >= 0) {
+            if(Math.abs(det) <= 0.00000001) {
                 System.out.println("Determinan matriks 0!");
             } else {
                 Matrix result = new Matrix(this.rows, 1);
@@ -729,7 +742,7 @@ public class Matrix {
                 k++;
             }
         }
-
+        this.validateZero();
         return constraint;
     }
 
