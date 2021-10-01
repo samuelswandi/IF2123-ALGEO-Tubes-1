@@ -36,7 +36,7 @@ public class Matrix {
             try {
                 System.out.print("Silahkan masukkan nama file beserta extension(.txt): ");
                 Scanner scnr = new Scanner(System.in);
-                File text = new File(scnr.nextLine());
+                File text = new File("../test/" + scnr.nextLine());
                 scnr = new Scanner(text);
 
                 System.out.print("Masukkan ukuran matriks m(baris) n(kolom): ");
@@ -86,7 +86,7 @@ public class Matrix {
             try {
                 System.out.print("Silahkan masukkan nama file beserta extension(.txt): ");
                 Scanner scnr = new Scanner(System.in);
-                File text = new File(scnr.nextLine());
+                File text = new File("../test/" + scnr.nextLine());
                 scnr = new Scanner(text);
 
                 System.out.print("Masukkan ukuran matriks n(baris & kolom): ");
@@ -119,7 +119,7 @@ public class Matrix {
             Scanner in = new Scanner(System.in);
             if (choice == 1) {
                 System.out.print("Masukkan nama file beserta extension(.txt): ");
-                FileWriter myWriter = new FileWriter(in.nextLine());
+                FileWriter myWriter = new FileWriter("../test/"+in.nextLine());
                 for (int i = 0; i < this.rows; i++) {
                     for (int j = 0;j< this.columns;j++){
                         myWriter.write(Double.toString(this.matrix[i][j]));
