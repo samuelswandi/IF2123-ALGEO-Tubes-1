@@ -404,6 +404,7 @@ public class Matrix {
                     // Assign Temporary Matrix Determinant for Variable's Resolver
                     result.matrix[i][0] = temp.CofactorDeterminan() / det;
                 }
+                result.validateZero();
                 System.out.println("Hasil SPL :");
                 this.matrix = result.matrix;
                 this.columns = 1;
