@@ -42,7 +42,7 @@ public class Main {
               int temp = menuSave();
               matrix.SaveToFile(temp);
               break;
-            
+
             case 2:
               matrix.SPLGaussJordan();
               int temp1 = menuSave();
@@ -77,11 +77,11 @@ public class Main {
           System.out.println("Penyelesaian determinan matriks menggunakan : ");
           System.out.println("1. Metode eliminasi Gauss");
           System.out.println("2. Metode kofaktor ");
-          
+
           System.out.print("Masukkan angka untuk memilih metode: ");
           int case2Choice = in.nextInt();
-          
-          //Initialize Value for Determinant
+
+          // Initialize Value for Determinant
           double det = 0.0;
 
           switch (case2Choice) {
@@ -99,7 +99,7 @@ public class Main {
           System.out.println(det);
 
           int temp = menuSave();
-          matrix.SaveToFile2(temp,det);
+          matrix.SaveToFile2(temp, det);
 
           System.out.print("\nMasukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
@@ -112,11 +112,11 @@ public class Main {
           System.out.println("Penyelesaian balikan matriks menggunakan : ");
           System.out.println("1. Metode eliminasi Gauss");
           System.out.println("2. Metode kofaktor ");
-          
+
           System.out.print("Masukkan angka untuk memilih metode: ");
           int case3Choice = in.nextInt();
-          
-          if (matrix.CofactorDeterminan() != 0){
+
+          if (matrix.CofactorDeterminan() != 0) {
             switch (case3Choice) {
               case 1:
                 matrix.GaussJordanInverse();
@@ -136,8 +136,7 @@ public class Main {
             int temp2 = menuSave();
             matrix.SaveToFile(temp2);
 
-          }
-          else{
+          } else {
             System.out.println("Matriks tidak memiliki balikan.");
           }
 
@@ -147,75 +146,65 @@ public class Main {
 
         case 4:
 
-        System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file): ");
-        int choiceInter = in.nextInt();
-        String x = new String();
-        String sentence = new String();
-        
-        Matrix eqMatrix = new Matrix(0,0);
+          System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file): ");
+          int choiceInter = in.nextInt();
+          String x = new String();
+          String sentence = new String();
 
-        if (choiceInter == 1) {
-          System.out.println("Masukkan input dengan format n,(X1,Y1),...,(Xn,Yn),X");
-          Scanner sc = new Scanner(System.in);
-          x = sc.nextLine();
-          x = x.replaceAll(" ", "").replaceAll("\\(", "").replaceAll("\\)", "");
-          String[] arrayIn = x.split(",");
+          Matrix eqMatrix = new Matrix(0, 0);
 
-          double[] arrayDouble = new double[Integer.parseInt(arrayIn[0]) * 2];
-          for (int i = 1; i < Integer.parseInt(arrayIn[0]) * 2 + 1 ; i++) {
-            arrayDouble[i - 1] = Double.parseDouble(arrayIn[i]);
-          }
+          if (choiceInter == 1) {
+            System.out.println("Masukkan input dengan format n,(X1,Y1),...,(Xn,Yn),X");
+            Scanner sc = new Scanner(System.in);
+            x = sc.nextLine();
+            x = x.replaceAll(" ", "").replaceAll("\\(", "").replaceAll("\\)", "");
+            String[] arrayIn = x.split(",");
 
-          //initialize Equation Matrix
-          eqMatrix = new Matrix(Integer.parseInt(arrayIn[0]), Integer.parseInt(arrayIn[0]) + 1);
-
-
-          for (int i = 0 ; i < Integer.parseInt(arrayIn[0]) ; i++){
-            for (int j = 0 ; j < Integer.parseInt(arrayIn[0]) + 1 ; j++){
-                if (j == Integer.parseInt(arrayIn[0])){
-                  eqMatrix.matrix[i][j] = arrayDouble[i*2 + 1];
-                }
-                else{
-                  eqMatrix.matrix[i][j] = Math.pow(arrayDouble[i*2], j);
-                }
+            double[] arrayDouble = new double[Integer.parseInt(arrayIn[0]) * 2];
+            for (int i = 1; i < Integer.parseInt(arrayIn[0]) * 2 + 1; i++) {
+              arrayDouble[i - 1] = Double.parseDouble(arrayIn[i]);
             }
-          }
 
-          sentence = eqMatrix.Interpolation(Double.parseDouble(arrayIn[Integer.parseInt(arrayIn[0]) * 2 + 1]));
-          
-        
-        } else if (choiceInter == 2) {
+            eqMatrix = new Matrix(Integer.parseInt(arrayIn[0]), Integer.parseInt(arrayIn[0]) + 1);
 
-          Matrix mIn = new Matrix(0, 0);
-          mIn.CreateMatrix3();
-          eqMatrix = new Matrix(mIn.rows,mIn.rows+1);
-          // int n = 7;
-          // int rows = n;
-          // int columns = n+1;
-          // double[][] mIn = {{0.1,0.003},{0.3,0.067},{0.5,0.148},{0.7,0.248},{0.9,0.370},{1.1,0.518},{1.3,0.697}};
-          // double[][] matrix = new double[rows][columns];
-          for (int i=0; i<eqMatrix.rows;i++){
-              for (int j=0; j<eqMatrix.columns; j++){
-                  if (j==eqMatrix.columns-1){
-                    eqMatrix.matrix[i][j] = mIn.matrix[i][1];
-                  }
-                  else{
-                    eqMatrix.matrix[i][j] = Math.pow(mIn.matrix[i][0], j);
-                  }
+            for (int i = 0; i < Integer.parseInt(arrayIn[0]); i++) {
+              for (int j = 0; j < Integer.parseInt(arrayIn[0]) + 1; j++) {
+                if (j == Integer.parseInt(arrayIn[0])) {
+                  eqMatrix.matrix[i][j] = arrayDouble[i * 2 + 1];
+                } else {
+                  eqMatrix.matrix[i][j] = Math.pow(arrayDouble[i * 2], j);
+                }
               }
-          }
-          System.out.print("Masukkan X yang ingin ditafsir: ");
-          double X = in.nextDouble();
-          sentence = eqMatrix.Interpolation(X);
+            }
 
-        } else {
+            sentence = eqMatrix.Interpolation(Double.parseDouble(arrayIn[Integer.parseInt(arrayIn[0]) * 2 + 1]));
+
+          } else if (choiceInter == 2) {
+
+            Matrix mIn = new Matrix(0, 0);
+            mIn.CreateMatrix3();
+            eqMatrix = new Matrix(mIn.rows, mIn.rows + 1);
+            for (int i = 0; i < eqMatrix.rows; i++) {
+              for (int j = 0; j < eqMatrix.columns; j++) {
+                if (j == eqMatrix.columns - 1) {
+                  eqMatrix.matrix[i][j] = mIn.matrix[i][1];
+                } else {
+                  eqMatrix.matrix[i][j] = Math.pow(mIn.matrix[i][0], j);
+                }
+              }
+            }
+            System.out.print("Masukkan X yang ingin ditafsir: ");
+            double X = in.nextDouble();
+            sentence = eqMatrix.Interpolation(X);
+
+          } else {
             System.out.println("Pilihan yang anda masukkan salah");
-        }
-        
+          }
+
           System.out.println(sentence);
 
           int temp3 = menuSave();
-          matrix.SaveToFile3(temp3,sentence);
+          matrix.SaveToFile3(temp3, sentence);
 
           System.out.print("Masukkan angka untuk memilih menu lain: ");
           choice = in.nextInt();
@@ -244,7 +233,7 @@ public class Main {
     in.close();
   }
 
-  public static int menuSave(){
+  public static int menuSave() {
     Scanner in = new Scanner(System.in);
     System.out.print("Apakah anda ingin menyimpan hasil dalam file(1:ya, 2:tidak): ");
     int choice = in.nextInt();
