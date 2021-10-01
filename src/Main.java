@@ -150,24 +150,14 @@ public class Main {
         System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file): ");
         int choiceInter = in.nextInt();
         String x = new String();
+        String sentence = new String();
+        
+        Matrix eqMatrix = new Matrix(0,0);
+
         if (choiceInter == 1) {
           System.out.println("Masukkan input dengan format n,(X1,Y1),...,(Xn,Yn),X");
           Scanner sc = new Scanner(System.in);
           x = sc.nextLine();
-        } else if (choiceInter == 2) {
-            try {
-                System.out.print("Silahkan masukkan nama file beserta extension(.txt): ");
-                Scanner scnr = new Scanner(System.in);
-                File text = new File(scnr.nextLine());
-                scnr = new Scanner(text);
-                x = scnr.nextLine();
-                scnr.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        } else {
-            System.out.println("Pilihan yang anda masukkan salah");
-        }
           x = x.replaceAll(" ", "").replaceAll("\\(", "").replaceAll("\\)", "");
           String[] arrayIn = x.split(",");
 
@@ -177,7 +167,7 @@ public class Main {
           }
 
           //initialize Equation Matrix
-          Matrix eqMatrix = new Matrix(Integer.parseInt(arrayIn[0]), Integer.parseInt(arrayIn[0]) + 1);
+          eqMatrix = new Matrix(Integer.parseInt(arrayIn[0]), Integer.parseInt(arrayIn[0]) + 1);
 
 
           for (int i = 0 ; i < Integer.parseInt(arrayIn[0]) ; i++){
@@ -190,8 +180,38 @@ public class Main {
                 }
             }
           }
+
+          sentence = eqMatrix.Interpolation(Double.parseDouble(arrayIn[Integer.parseInt(arrayIn[0]) * 2 + 1]));
           
-          String sentence = eqMatrix.Interpolation(Double.parseDouble(arrayIn[Integer.parseInt(arrayIn[0]) * 2 + 1]));
+        
+        } else if (choiceInter == 2) {
+
+          Matrix mIn = new Matrix(0, 0);
+          mIn.CreateMatrix3();
+          eqMatrix = new Matrix(mIn.rows,mIn.rows+1);
+          // int n = 7;
+          // int rows = n;
+          // int columns = n+1;
+          // double[][] mIn = {{0.1,0.003},{0.3,0.067},{0.5,0.148},{0.7,0.248},{0.9,0.370},{1.1,0.518},{1.3,0.697}};
+          // double[][] matrix = new double[rows][columns];
+          for (int i=0; i<eqMatrix.rows;i++){
+              for (int j=0; j<eqMatrix.columns; j++){
+                  if (j==eqMatrix.columns-1){
+                    eqMatrix.matrix[i][j] = mIn.matrix[i][1];
+                  }
+                  else{
+                    eqMatrix.matrix[i][j] = Math.pow(mIn.matrix[i][0], j);
+                  }
+              }
+          }
+          System.out.print("Masukkan X yang ingin ditafsir: ");
+          double X = in.nextDouble();
+          sentence = eqMatrix.Interpolation(X);
+
+        } else {
+            System.out.println("Pilihan yang anda masukkan salah");
+        }
+        
           System.out.println(sentence);
 
           int temp3 = menuSave();

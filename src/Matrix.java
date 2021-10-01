@@ -111,6 +111,34 @@ public class Matrix {
 
     }
 
+    void CreateMatrix3() { // Untuk kasus interpolasi
+        /* Membaca dan membentuk matrix dari class Matrix */
+        /* I.S. = - */
+        /* F.S. = Terbentuk Matrix sesuai dengan inputan pengguna */
+        Scanner in = new Scanner(System.in);
+            try {
+                System.out.print("Silahkan masukkan nama file beserta extension(.txt): ");
+                Scanner scnr = new Scanner(System.in);
+                File text = new File("../test/" + scnr.nextLine());
+                scnr = new Scanner(text);
+
+                System.out.print("Masukkan n: ");
+                int n = in.nextInt();
+                this.rows = n;
+                this.columns = 2;
+                this.matrix = new double[n][2];
+                for (int i = 0; i < this.rows; i++) {
+                    for (int j = 0; j < this.columns; j++) {
+                        this.matrix[i][j] = scnr.nextDouble();
+                    }
+                }
+                scnr.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+    }
+
     void SaveToFile(int choice) {
         /* Membaca dan Membuat File Baru untuk memasukkan matrix*/
         /* I.S. = - */
