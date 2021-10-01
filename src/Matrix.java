@@ -220,6 +220,19 @@ public class Matrix {
 
     /***** KELOMPOK OPERASI PRIMITIF TERHADAP MATRIX *****/
 
+    void validateZero(){
+        /* I.S. = Matrix terdefinisi */
+        /* F.S. = Elemen matriks dengan besar < abs(10^-8) diubah menjadi 0 */
+        for (int i = 0 ; i<this.rows ; i++){
+            for(int j = 0 ; j < this.columns ; j++){
+                if (Math.abs(this.matrix[i][j]) <= 0.00000001){
+                    this.matrix[i][j] = 0.0;
+                }
+            }
+        }
+    }
+
+
     void Transpose() {
         /* Menghasilkan matrix transpose */
         /* I.S. = Matrix persegi terdefinisi (Matriks berukuran N x N) */
@@ -347,7 +360,7 @@ public class Matrix {
                     }
                 }
             }
-            if(mOut.CofactorDeterminan() <= 0.0000000001 && mOut.CofactorDeterminan()>=0) {
+            if(Math.abs(mOut.CofactorDeterminan()) <= 0.0000000001) {
                 System.out.println("Matriks tidak memiliki invers!");
             } else {
                 System.out.println("Hasil SPL :");
@@ -372,7 +385,7 @@ public class Matrix {
             System.out.println("Dibutuhkan " + this.columns +" persamaan untuk " + this.columns + " buah variabel!");
         } else {
             double det = this.GaussDeterminan();
-            if(det <= 0.00000000001 && det >= 0) {
+            if(Math.abs(det) <= 0.00000001) {
                 System.out.println("Determinan matriks 0!");
             } else {
                 Matrix result = new Matrix(this.rows, 1);
@@ -450,14 +463,6 @@ public class Matrix {
          * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N = matrix.rows, menggunakan
          * pendekatan parametrik dengan batasan alfabet (p - z) [ASCII 112 - 122]
          */
-        // double[] result = new double[this.rows];
-
-        // for(int i = this.rows - 1; i >= 0 ; i--){
-        //     result[i] = this.matrix[i][this.columns - 1];
-        //     for (int j = this.columns - 2 ; j > i; j--){
-        //         result[i] -= this.matrix[i][j] * result[j];
-        //     }
-        // }
     }
 
 
@@ -470,6 +475,40 @@ public class Matrix {
          */
         double[] temp = this.GaussTransform();
         this.TransformOne();
+        this.addZeroBelow();
+        switch(this.CheckMatrix()){
+
+            //Segmen Solusi Unik
+            case 0:
+            this.gaussUniqueSolution();
+            break;
+            
+            //Segmen Solusi Banyak
+            case 1:
+            this.gaussMultipleSolution();
+            break;
+
+            //Segmen Tidak Terdapat Solusi
+            case 2:
+            System.out.println("SPL tidak memiliki solusi penyelesaian.");
+            break;
+            
+            default:
+
+            break;
+        }
+    }
+
+
+    void SPLGaussJordan(){
+        /* Mencari Solusi SPL dengan metode Gauss-Jordan */
+        /* I.S. = Matrix terdefinisi yang memiliki nilai determinan != 0 */
+        /*
+         * F.S. = Tercetak solusi penyelesaian variabel x1,x2,...,xN dengan N =
+         * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
+         */
+        this.GaussJordanTransform();
+        this.addZeroBelow();
         switch(this.CheckMatrix()){
 
             //Segmen Solusi Unik
@@ -613,6 +652,22 @@ public class Matrix {
         this.matrix = deletedMatrix.matrix;
     }
 
+    void addZeroBelow(){
+        Matrix tempMatrix = new Matrix(this.columns -1 , this.columns);
+        for(int i = 0 ; i < tempMatrix.rows ; i++){
+            for (int j =0 ; j < tempMatrix.columns ;j++){
+                if (i < this.rows){
+                    tempMatrix.matrix[i][j] = this.matrix[i][j];
+                }
+                else{
+                    tempMatrix.matrix[i][j] = 0.0;
+                }
+            }
+        }
+        this.matrix = tempMatrix.matrix;
+        this.rows = this.columns - 1;
+    }
+
 
     void CofactorInverse() {
         /* Menghasilkan inverse / balikan dari suatu matriks */
@@ -729,7 +784,7 @@ public class Matrix {
                 k++;
             }
         }
-
+        this.validateZero();
         return constraint;
     }
 

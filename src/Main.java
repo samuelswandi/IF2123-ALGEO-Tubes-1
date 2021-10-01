@@ -38,17 +38,12 @@ public class Main {
           switch (case1Choice) {
 
             case 1:
-              // double[] temp = matrix.GaussTransform();
-              // matrix.DisplayMatrix();
-              // int choice23 = matrix.CheckMatrix();
               matrix.SPLGauss();
               break;
             
             case 2:
-              matrix.GaussJordanTransform();
+              matrix.SPLGaussJordan();
               matrix.DisplayMatrix();
-              int choice12 = matrix.CheckMatrix();
-              System.out.println(choice12);
               break;
 
             case 3:
