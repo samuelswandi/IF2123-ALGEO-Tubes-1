@@ -1,9 +1,21 @@
-# Code **Syntax** and **Semantics** Guide :triangular_ruler:
+# Tugas Besar Aljabar Linear dan Geometri - IF2123
 
-## Comments
+## Tugas Besar ini dibuat oleh :
+
+    13520075 - Samuel Christopher Swandi
+    13520078 - Grace Claudia
+    13520109 - Patrick Amadeus Irawan
+
+## _Repository_ ini berisi:
+
+    Folder bin berisi java bytecode (*.class)
+    Folder src berisi source code dari program java
+    Folder test berisi data uji.
+    Folder doc berisi laporan
+
+## Code **Syntax** and **Semantics** Guide :triangular_ruler:
 ---
-All except short comment pakai /* */ aja biar lebi enak lihatnya
-1.  _procedure_ : Short desc ; IS and FS.
+1.  _procedure_ : Short desc; IS and FS.
     ```java
         void SPLbalikan() {
         /* Mencari Solusi SPL dengan metode inverse */
@@ -17,7 +29,7 @@ All except short comment pakai /* */ aja biar lebi enak lihatnya
                 for (j = 0; j < this.columns; j++) {
         ...
     ```
-2. _function_ : Short Desc ; Prekondisi (if any) ; return what?
+2. _function_ : Short Desc; return something
     ```java
         double[][] Multiply(double[][] mIn) {
         /* Prekondisi : Ukuran kolom efektif Matrix = ukuran baris efektif mIn */
@@ -41,7 +53,7 @@ All except short comment pakai /* */ aja biar lebi enak lihatnya
     ...
     ```
 
-4. Short Comment using `//comment` aja
+4. Short Comment using `//comment`
     ```java
         double[][] Multiply(double[][] mIn) {
             //variable untuk indexing
