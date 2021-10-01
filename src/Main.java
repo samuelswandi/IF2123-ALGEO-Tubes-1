@@ -1,5 +1,6 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+import java.lang.Math;
 
 public class Main {
   public static void main(String[] args) {
@@ -147,9 +148,28 @@ public class Main {
           break;
 
         case 4:
+
+        System.out.print("Pilihan masukkan (1 : Manual Keyboard, 2 : Masukkan nama file): ");
+        int choiceInter = in.nextInt();
+        String x = new String();
+        if (choiceInter == 1) {
           System.out.println("Masukkan input dengan format n,(X1,Y1),...,(Xn,Yn),X");
           Scanner sc = new Scanner(System.in);
-          String x = sc.nextLine();
+          x = sc.nextLine();
+        } else if (choiceInter == 2) {
+            try {
+                System.out.print("Silahkan masukkan nama file beserta extension(.txt): ");
+                Scanner scnr = new Scanner(System.in);
+                File text = new File(scnr.nextLine());
+                scnr = new Scanner(text);
+                x = scnr.nextLine();
+                scnr.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            System.out.println("Pilihan yang anda masukkan salah");
+        }
           x = x.replaceAll(" ", "").replaceAll("\\(", "").replaceAll("\\)", "");
           String[] arrayIn = x.split(",");
 
