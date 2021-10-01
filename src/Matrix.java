@@ -478,6 +478,15 @@ public class Matrix {
         if (this.rows < this.columns - 1){
             this.addZeroBelow();
         }
+
+        if (this.rows > this.columns){
+            this.transformNXN();
+            if (this.CheckMatrix()  == 1){
+                this.delLastRow();
+            }
+        }
+
+        //ini ke bawah, yang uda ready well polished
         switch(this.CheckMatrix()){
 
             //Segmen Solusi Unik
@@ -513,6 +522,14 @@ public class Matrix {
         if (this.rows < this.columns - 1){
             this.addZeroBelow();
         }
+
+        if (this.rows > this.columns){
+            this.transformNXN();
+            if (this.CheckMatrix()  == 1){
+                this.delLastRow();
+            }
+        }
+        
         switch(this.CheckMatrix()){
 
             //Segmen Solusi Unik
@@ -687,6 +704,28 @@ public class Matrix {
                 else{
                     tempMatrix.matrix[i][j] = 0.0;
                 }
+            }
+        }
+        this.matrix = tempMatrix.matrix;
+        this.rows = this.columns - 1;
+    }
+
+    void transformNXN(){
+        Matrix tempMatrix = new Matrix(this.columns , this.columns);
+        for (int i = 0 ; i < tempMatrix.rows ; i++){
+            for (int j = 0 ; j < tempMatrix.columns ; j++){
+                tempMatrix.matrix[i][j] = this.matrix[i][j];
+            }
+        }
+        this.matrix = tempMatrix.matrix;
+        this.rows = this.columns;
+    }
+
+    void delLastRow(){
+        Matrix tempMatrix = new Matrix(this.columns - 1 , this.columns);
+        for (int i = 0 ; i < tempMatrix.rows ; i++){
+            for (int j = 0 ; j < tempMatrix.columns ; j++){
+                tempMatrix.matrix[i][j] = this.matrix[i][j];
             }
         }
         this.matrix = tempMatrix.matrix;

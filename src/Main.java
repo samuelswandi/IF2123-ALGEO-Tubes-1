@@ -39,6 +39,7 @@ public class Main {
 
             case 1:
               matrix.SPLGauss();
+              matrix.DisplayMatrix();
               int temp = menuSave();
               matrix.SaveToFile(temp);
               break;
