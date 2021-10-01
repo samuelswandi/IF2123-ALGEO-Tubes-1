@@ -402,7 +402,7 @@ public class Matrix {
                         }
                     }
                     // Assign Temporary Matrix Determinant for Variable's Resolver
-                    result.matrix[i][0] = temp.GaussDeterminan() / det;
+                    result.matrix[i][0] = temp.CofactorDeterminan() / det;
                 }
                 System.out.println("Hasil SPL :");
                 this.matrix = result.matrix;
@@ -475,7 +475,9 @@ public class Matrix {
          */
         double[] temp = this.GaussTransform();
         this.TransformOne();
-        this.addZeroBelow();
+        if (this.rows < this.columns - 1){
+            this.addZeroBelow();
+        }
         switch(this.CheckMatrix()){
 
             //Segmen Solusi Unik
@@ -508,7 +510,9 @@ public class Matrix {
          * banyaknya baris matrix augmented yang dipisahkan dengan newline (\n)
          */
         this.GaussJordanTransform();
-        this.addZeroBelow();
+        if (this.rows < this.columns - 1){
+            this.addZeroBelow();
+        }
         switch(this.CheckMatrix()){
 
             //Segmen Solusi Unik
@@ -548,7 +552,28 @@ public class Matrix {
             }
         }
         if (temp) {
-            return 1;
+            for(int i = this.rows - 1 ; i >= 0; i--){
+                boolean isZero = true; // 0 0 0 0 0 0 0 0 0 0 (0)
+                for(int j = 0 ; j < this.columns - 1;j++){
+                    if(this.matrix[i][j] != 0){
+                        isZero = false;
+                    }
+                }
+                if (isZero){
+                    if(this.matrix[i][this.columns - 1] != 0){
+                        temp = false;
+                    }
+                }
+                if (!temp){break;}
+            }
+
+            if (temp){
+                return 1;
+            }
+            else{
+                return 2;
+            }
+
         } else {
             boolean temp2 = true;
             for(int j = 0; j < this.columns ; j++) {

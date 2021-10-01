@@ -39,24 +39,27 @@ public class Main {
 
             case 1:
               matrix.SPLGauss();
+              int temp = menuSave();
+              matrix.SaveToFile(temp);
               break;
             
             case 2:
               matrix.SPLGaussJordan();
-              matrix.DisplayMatrix();
+              int temp1 = menuSave();
+              matrix.SaveToFile(temp1);
               break;
 
             case 3:
               // Metode invers
               matrix.SPLInverse();
-              int temp = menuSave();
-              matrix.SaveToFile(temp);
+              int temp2 = menuSave();
+              matrix.SaveToFile(temp2);
               break;
 
             case 4:
               matrix.SPLCramer();
-              int temp1 = menuSave();
-              matrix.SaveToFile(temp1);
+              int temp3 = menuSave();
+              matrix.SaveToFile(temp3);
               break;
             default:
 
